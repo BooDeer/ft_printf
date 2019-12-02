@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_getls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/02 22:02:52 by hboudhir         ###   ########.fr       */
+/*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
+/*   Updated: 2019/12/02 22:03:40 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "srcs/ft_printf.h"
-#include <stdio.h>
+#include "../libft/libft.h"
+#include "../srcs/ft_printf.h"
 
-int		get_index(char *str, int start)
+static	int		get_index(char *str, int start)
 {
 	char	*cnv;
 	int		j;
@@ -58,60 +57,4 @@ void	get_ls(char	*str, t_list **root)
 		}
 	}
 	return ;
-}
-
-void	ft_put_arg(va_list args, t_list **node,char c)
-{
-	if (c == 'c')
-		ft_c_specifier(args, node);
-	else if (c == 's')
-		ft_s_specifier(args, node);
-	else if (c == 'p')
-		ft_p_specifier(args, node);
-	else if (c == 'x')
-		ft_x_specifier(args, node);
-	else if (c == 'X')
-		ft_bigx_specifier(args, node);
-	else if (c == 'd')
-		ft_d_specifier(args, node);
-	else if (c == 'i')
-		ft_i_specifier(args, node);
-	else if (c == '%')
-		ft_percent_specifier(args, node);
-	else if (c == 'u')
-		ft_u_speficier(args, node);
-	return (NULL);			
-}
-void	get_args(t_list **root, va_list args)
-{
-	t_list		*temp;
-	char		*type;
-
-	temp = *root;
-	while(temp)
-	{
-		if (temp->cnv != '\0')
-			ft_put_arg(args, &temp, temp->cnv);
-		temp = temp->next;
-	}
-}
-void		ft_printf(const char *str, ...)
-{
-	va_list		args;
-	t_list		*root;
-
-	root = NULL;
-	va_start(args, str);
-	get_ls((char *)str, &root);
-	get_args(&root, args);
-	
-	
-	return ;
-}
-
-int	main()
-{
-	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	printf("%010c",'a');
-	return (0);
 }
