@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/02 23:08:32 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:28:19 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		ft_printf(const char *str, ...)
 int	main()
 {
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	ft_printf("this is a test%-*c\n",2, 'a');
+	ft_printf("this is a test%*c\n\n %c\n", -5, 'a' , 'z');
+	printf("this is a test%*c\n\n %c\n", -5, 'a', 'z');
 	return (0);
 }

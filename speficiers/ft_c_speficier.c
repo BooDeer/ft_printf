@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:30:25 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/02 23:06:41 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/03 18:25:19 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,18 @@ void	ft_c_specifier(va_list args, t_list *node)
 	if (node->flag[i] == '*')
 	{
 		width = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_strncmp(width, "0", ft_strlen(width)))
-			width = "1";
+		if (ft_atoi(width) < 0)
+		{
+			width++;
+			flag = '-';
+		}
 		i++;
 	}
 	len = i;
-	while(ft_isdigit(node->flag[i++]))
-		;
-	width = ft_substr(node->flag,len, i - len);
+	while(ft_isdigit(node->flag[i]))
+		i++;
+	if (len != i)
+		width = ft_substr(node->flag,len, i - len + 1);
 	string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 	ft_memset(string, ' ', ft_atoi(width));
 	if (flag == '-')
