@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/03 18:28:19 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/04 15:57:39 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,9 @@ void	get_args(t_list **root, va_list args)
 	temp = *root;
 	while(temp)
 	{
-		if (temp->cnv != '\0')
-			ft_put_arg(args, temp, temp->cnv);
+		// printf("ZZ\n");
+		 if (temp->cnv != '\0')
+		 	ft_put_arg(args, temp, temp->cnv);
 		temp = temp->next;
 	}
 }
@@ -122,7 +123,8 @@ void		ft_printf(const char *str, ...)
 int	main()
 {
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	ft_printf("this is a test%*c\n\n %c\n", -5, 'a' , 'z');
-	printf("this is a test%*c\n\n %c\n", -5, 'a', 'z');
+	// printf("%%\n");
+	ft_printf("%chis i%-2c %*c\n", 't', 's', 10, 'z');
+	printf("%chis i%-2c %*c", 't', 's',10, 'z');
 	return (0);
 }

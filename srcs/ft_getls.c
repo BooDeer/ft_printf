@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/02 22:03:40 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:05:06 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	get_ls(char	*str, t_list **root)
 	i = -1;
 	while(str[++i])
 	{
-		if ((str[i + 1] == '%' || str[i + 1] == '\0') && str[i] != '%')
-			ft_lstadd_back(root, ft_lstnew(ft_substr(str, start, (i - start) + 1), '\0', NULL));
 
 		if (str[i] == '%')
 		{
@@ -55,6 +53,8 @@ void	get_ls(char	*str, t_list **root)
 			start = skipcnv + 1;
 			i = skipcnv + 1;
 		}
+		if ((str[i + 1] == '%' || str[i + 1] == '\0') && str[i] != '%')
+			ft_lstadd_back(root, ft_lstnew(ft_substr(str, start, (i - start) + 1), '\0', NULL));
 	}
 	return ;
 }
