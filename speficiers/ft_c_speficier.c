@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:30:25 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/11 12:10:17 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/11 18:07:30 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	ft_c_specifier(va_list args, t_list *node)
 	int		len;
 
 	width = NULL;
-	len = 0;
 	i = 0;
 	if (!node)
 		return ;
@@ -30,7 +29,6 @@ void	ft_c_specifier(va_list args, t_list *node)
 		flag = node->flag[i++];
 	if (node->flag[i] == '*')
 	{
-		flag = '*';
 		width = ft_strdup(ft_itoa(va_arg(args, int)));
 		if (ft_atoi(width) < 0)
 		{
