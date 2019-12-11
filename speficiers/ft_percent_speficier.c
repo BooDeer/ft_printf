@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:36 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/03 21:50:12 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:02:54 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_percent_specifier(va_list args, t_list *node)
 	char	*width;
 	int		len;
 
+	width = NULL;
 	len = 0;
 	i = 0;
 	if (!node)
@@ -30,9 +31,12 @@ void	ft_percent_specifier(va_list args, t_list *node)
 		
 		if (flag == '-')
 		{
+			flag = '-';
 			i++;
 			continue;
 		}
+		else
+			flag = '0';		
 		flag = node->flag[i++];
 	}
 	if (node->flag[i] == '*')
@@ -50,7 +54,9 @@ void	ft_percent_specifier(va_list args, t_list *node)
 		i++;
 	if (len != i)
 		width = ft_substr(node->flag,len, i - len + 1);
-	if (node->flag[i + 2] == '*')
+	if (!width)
+		width = ft_strdup("1");
+	if (node->flag[i + 1] == '*')
 		va_arg(args, int);
 	string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 	if(flag == '0')
@@ -58,9 +64,9 @@ void	ft_percent_specifier(va_list args, t_list *node)
 	else
 		ft_memset(string, ' ', ft_atoi(width));
 	if (flag == '-')
-		string[0] = va_arg(args, int);
+		string[0] = '%';
 	else
-		string[ft_atoi(width) - 1] = va_arg(args, int);	
+		string[ft_atoi(width) - 1] = '%';	
 	string[ft_atoi(width)] = '\0';
 	node->str = ft_strdup(string);
 }

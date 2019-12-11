@@ -6,13 +6,18 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/04 16:05:06 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:24:50 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../srcs/ft_printf.h"
 
+/*
+* This function allows us to know the length of
+* the string starting from the '%' until the
+* first speficier encountered
+*/
 static	int		get_index(char *str, int start)
 {
 	char	*cnv;
@@ -33,7 +38,26 @@ static	int		get_index(char *str, int start)
 	}
 	return (0);
 }
+static	int		check_index(char str)
+{
+	char	*cnv;
+	int		j;
 
+	cnv = "cspdiuxX%";
+	j = 0;
+	while(cnv[j])
+	{
+		if (str == cnv[j])
+			return (0);
+		j++;
+	}
+	return (1);
+}
+/*
+* This function allows us to get each string or combinaison of
+* flags, width and precision in seperated nodes
+*
+*/
 void	get_ls(char	*str, t_list **root)
 {
 	size_t	i;
@@ -44,17 +68,22 @@ void	get_ls(char	*str, t_list **root)
 	i = -1;
 	while(str[++i])
 	{
-
 		if (str[i] == '%')
 		{
-			start = i;
-			skipcnv = get_index(str, start + 1);
+			start = i + 1;
+			skipcnv = get_index(str, start);
 			ft_lstadd_back(root, ft_lstnew(NULL, *ft_substr(str, skipcnv, 1), ft_substr(str, i + 1,skipcnv - i - 1)));
-			start = skipcnv + 1;
-			i = skipcnv + 1;
+			start = skipcnv;
+			i = skipcnv;
 		}
-		if ((str[i + 1] == '%' || str[i + 1] == '\0') && str[i] != '%')
-			ft_lstadd_back(root, ft_lstnew(ft_substr(str, start, (i - start) + 1), '\0', NULL));
+		else if ((str[i + 1] == '%' || str[i + 1] == '\0') && str[i] != '%')
+		{
+			if (check_index(str[start]))
+				ft_lstadd_back(root, ft_lstnew(ft_substr(str, start, (i - start) + 1), '\0', NULL));
+			else
+				ft_lstadd_back(root, ft_lstnew(ft_substr(str, start +1, (i - start)), '\0', NULL));
+		}
 	}
+	
 	return ;
-}
+} // %%%c%%\n

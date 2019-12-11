@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/04 15:57:39 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:36:23 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ void	ft_put_arg(va_list args, t_list *node,char c)
 	// 	ft_d_specifier(args, node);
 	// else if (c == 'i')
 	// 	ft_i_specifier(args, node);
-	// else if (c == '%')
-	// 	ft_percent_specifier(args, node);
+	else if (c == '%')
+		ft_percent_specifier(args, node);
 	// else if (c == 'u')
 	// 	ft_u_speficier(args, node);
 	return ;			
 }
+
 void	get_args(t_list **root, va_list args)
 {
 	t_list		*temp;
@@ -123,8 +124,7 @@ void		ft_printf(const char *str, ...)
 int	main()
 {
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	// printf("%%\n");
-	ft_printf("%chis i%-2c %*c\n", 't', 's', 10, 'z');
-	printf("%chis i%-2c %*c", 't', 's',10, 'z');
+	ft_printf("%0-9.*%%c\n",10,'a');
+	printf("%0-9.*%%c",10, 'a');
 	return (0);
 }
