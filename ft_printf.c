@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/11 23:25:56 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/13 18:07:34 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ void	ft_put_arg(va_list args, t_list *node,char c)
 {
 	if (c == 'c')
 		ft_c_specifier(args, node);
-	// else if (c == 's')
-	// 	ft_s_specifier(args, node);
+	else if (c == 's')
+		ft_s_specifier(args, node);
 	// else if (c == 'p')
 	// 	ft_p_specifier(args, node);
 	// else if (c == 'x')
 	// 	ft_x_specifier(args, node);
 	// else if (c == 'X')
 	// 	ft_bigx_specifier(args, node);
-	else if (c == 'd')
-		ft_d_specifier(args, node);
+	// else if (c == 'd')
+	// 	ft_d_specifier(args, node);
 	// else if (c == 'i')
 	// 	ft_i_specifier(args, node);
 	else if (c == '%')
@@ -77,6 +77,7 @@ void		ft_printf(const char *str, ...)
 int	main()
 {
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	printf("%*.*d\n", 10,10,6);
+	ft_printf("%s\n","test");
+	printf("%s\n","test");
 	return (0);
 }
