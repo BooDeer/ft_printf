@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:04:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/13 18:17:49 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/13 22:32:11 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		ft_s_specifier(va_list args, t_list *node)
 	{
 		precision = ft_strdup(ft_itoa(va_arg(args, int)));
 		if (ft_atoi(precision) < 0)
-			precision = ft_strdup("1");
+			precision = ft_strdup("-2");
 		i++;
 	}
 	len = i;
@@ -61,11 +61,11 @@ void		ft_s_specifier(va_list args, t_list *node)
 		width = ft_strdup("1");
 	if (!precision && node->flag[i] == '.')
 		precision = ft_strdup("0");
-	else
-		precision = ft_strdup(".");
+	else if (!precision)
+		precision = ft_strdup("0");
 	len = ft_atoi(precision);
-		precision = va_arg(args, char *);
-		if (node->flag[i] != '.')
+	precision = va_arg(args, char *);
+	if ((node->flag[i - 2] == '.'  || node->flag[i - 1] == '.') && len >= 0)
 			precision = ft_substr(precision, 0, len);
 	if (ft_atoi(width) > (int)ft_strlen(precision))
 	{
@@ -79,6 +79,8 @@ void		ft_s_specifier(va_list args, t_list *node)
 				ft_strlcpy(&string[ft_atoi(width) - ft_strlen(precision)] , precision, ft_strlen(precision) + 1);
 			string[ft_atoi(width)] = '\0';
 		}
+		else if (ft_atoi(width) == 1)
+			string[ft_atoi(width) - 1] = '\0';		
 		
 	}
 	else
