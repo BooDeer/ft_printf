@@ -6,11 +6,22 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:04:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/13 22:32:11 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:54:34 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/ft_printf.h"
+
+int			precision_exist(t_list *node, int i)
+{
+	while(node->flag[i] != '%')
+	{
+		if (node->flag[i] == '.')
+			return (1);
+		i--;
+	}
+	return (0);
+}
 
 void		ft_s_specifier(va_list args, t_list *node)
 {
@@ -65,7 +76,7 @@ void		ft_s_specifier(va_list args, t_list *node)
 		precision = ft_strdup("0");
 	len = ft_atoi(precision);
 	precision = va_arg(args, char *);
-	if ((node->flag[i - 2] == '.'  || node->flag[i - 1] == '.') && len >= 0)
+	if (precision_exist(node, i) && len >= 0)
 			precision = ft_substr(precision, 0, len);
 	if (ft_atoi(width) > (int)ft_strlen(precision))
 	{

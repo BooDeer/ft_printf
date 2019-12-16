@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:16:56 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/11 23:22:58 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/16 20:57:09 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_d_specifier(va_list args, t_list *node)
 	char	*precision;
 
 	width = NULL;
+	precision = NULL;
 	i = 0;
 	if (!node)
 		return ;
