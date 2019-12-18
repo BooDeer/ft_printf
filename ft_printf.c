@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/18 15:34:44 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/18 18:59:02 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_put_arg(va_list args, t_list *node,char c)
 	// 	ft_p_specifier(args, node);
 	// else if (c == 'x')
 	// 	ft_x_specifier(args, node);
-	// else if (c == 'X')
-	// 	ft_bigx_specifier(args, node);
+	else if (c == 'X')
+		ft_bigx_specifier(args, node);
 	else if (c == 'd' || c == 'i')
 		ft_d_specifier(args, node);
 	else if (c == '%')
@@ -75,7 +75,6 @@ void		ft_printf(const char *str, ...)
 int	main()
 {
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	ft_printf("%10.5i\n", 2147483647);
-	   printf("%10.5i\n", 2147483647);
+	printf("%0*.*X\n", 5,, 647);
 	return (0);
 }
