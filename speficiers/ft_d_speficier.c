@@ -6,11 +6,28 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:16:56 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/16 20:57:09 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/18 15:34:03 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/ft_printf.h"
+
+static int		ft_count(int n)
+{
+	int count;
+
+	count = 1;
+	if (n < 0)
+		count++;
+	if (n == 0)
+		count = 2;
+	while (n != 0)
+	{
+		count++;
+		n /= 10;
+	}
+	return (count);
+}
 
 void	ft_d_specifier(va_list args, t_list *node)
 {
@@ -61,19 +78,40 @@ void	ft_d_specifier(va_list args, t_list *node)
 		width = ft_strdup("1");
 	if (!precision)
 		precision = ft_strdup("1");
-	if (ft_atoi(width) > ft_atoi(precision))
+	len = va_arg(args, int);
+	if (ft_atoi(width) > ft_count(len) && ft_atoi(width) > ft_atoi(precision))
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
-		len = ft_atoi(width);
+		ft_memset(string, ' ', ft_atoi(width));
+		if (flag == '-')
+		{
+			ft_memset(string, '0', ft_atoi(precision));
+			if (ft_atoi(precision) > ft_count(len))
+				ft_memcpy(&string[ft_atoi(precision) - ft_count(len) + 1], ft_itoa(len), ft_count(len) - 1);
+			else
+				ft_memcpy(string, ft_itoa(len), ft_count(len) - 1);			
+		}
+		else
+		{
+			ft_memset(&string[ft_atoi(width) - ft_atoi(precision)], '0', ft_atoi(precision));
+			ft_memcpy(&string[ft_atoi(width) - ft_count(len) + 1], ft_itoa(len), 
+			ft_count(len));
+		}
+		string[ft_atoi(width)] = '\0';
+	}
+	else if (ft_atoi(precision) > ft_count(len))
+	{
+		string = (char *)malloc(sizeof(char) * ft_atoi(precision) + 1);
+		ft_memset(string, '0', ft_atoi(precision));
+		ft_strlcpy(&string[ft_atoi(precision) - ft_count(len) + 1], ft_itoa(len), 
+		ft_count(len));
+		string[ft_atoi(precision)] = '\0';
 	}
 	else
 	{
-		string = (char *)malloc(sizeof(char) * ft_atoi(precision) + 1);
-		len = ft_atoi(precision);
+		string = (char *)malloc(sizeof(char) * ft_count(len) + 1);
+		string = ft_strdup(ft_itoa(len));
+		string[ft_count(len)] = '\0';
 	}
-	ft_memset(string, '0', ft_atoi(precision));
-	
-	
-	string[len] = '\0';
-	node->str = va_arg(args, char *);
+	node->str = string;
 }

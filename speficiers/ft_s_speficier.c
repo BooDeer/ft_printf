@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:04:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/16 20:54:34 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/16 22:34:07 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,9 @@ void		ft_s_specifier(va_list args, t_list *node)
 			string[ft_atoi(width)] = '\0';
 		}
 		else if (ft_atoi(width) == 1)
-			string[ft_atoi(width) - 1] = '\0';		
-		
+			string[ft_atoi(width) - 1] = '\0';
 	}
 	else
 		string = ft_strdup(precision);
-	
-	
-	
 	node->str = string;
 }
