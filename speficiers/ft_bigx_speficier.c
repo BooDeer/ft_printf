@@ -66,7 +66,7 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 		precision = ft_strdup("1");
 	len = ft_atoi(precision);
 	precision = ft_hexconv(va_arg(args, int));
-	if (ft_atoi(width) > ft_atoi(precision) && ft_atoi(width) > len)
+	if (ft_atoi(width) > (int)ft_strlen(precision) && ft_atoi(width) > len)
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 		ft_memset(string, ' ', ft_atoi(width));
@@ -82,6 +82,12 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 		{
 			ft_memset(string, '0', ft_atoi(width));
 		}
+		else
+		{
+			ft_memset(&string[ft_atoi(width) - len], '0', len);
+			ft_memcpy(&string[ft_atoi(width) - ft_strlen(precision)], precision, ft_strlen(precision));
+		}
+		
 		string[ft_atoi(width)] = '\0';
 	}
 	else if (len > (int)ft_strlen(precision))

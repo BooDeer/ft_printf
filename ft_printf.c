@@ -75,7 +75,7 @@ void		ft_printf(const char *str, ...)
 int	main()
 {
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	   printf("%*.*X\n", 5, 10, 25);
-	ft_printf("%*.*X\n", 5, 10, 25);
+	   printf("%5X\n", 25);
+	ft_printf("%5X\n", 25);
 	return (0);
 }
