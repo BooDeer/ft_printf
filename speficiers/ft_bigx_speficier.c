@@ -82,6 +82,20 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 		{
 			ft_memset(string, '0', ft_atoi(width));
 		}
+		string[ft_atoi(width)] = '\0';
+	}
+	else if (len > (int)ft_strlen(precision))
+	{
+		string = (char *)malloc(sizeof(char) * len + 1);
+		ft_memset(string, '0', len);
+		ft_strlcpy(&string[len - ft_strlen(precision)], precision, ft_strlen(precision) + 1);
+		string[len] = '\0';
+	}
+	else
+	{
+		string = (char *)malloc(sizeof(char)* ft_strlen(precision) + 1);
+		string = ft_strdup(precision);
+		string[ft_strlen(precision)] = '\0';
 	}
 
 	node->str = string;
