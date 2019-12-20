@@ -79,7 +79,9 @@ void	ft_d_specifier(va_list args, t_list *node)
 	if (!precision)
 		precision = ft_strdup("1");
 	len = va_arg(args, int);
-	if (ft_atoi(width) > ft_count(len) && ft_atoi(width) > ft_atoi(precision))
+	if (ft_atoi(width) == '0' && ft_atoi(precision) == '0' && len == '0')
+		string = ft_strdup("");
+	else if (ft_atoi(width) > ft_count(len) && ft_atoi(width) > ft_atoi(precision))
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 		ft_memset(string, ' ', ft_atoi(width));

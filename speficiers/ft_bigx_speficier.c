@@ -42,7 +42,7 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 	len = i;
 	while(ft_isdigit(node->flag[i]))
 		i++;
-	if (node->flag[i] == '.')
+	if (node->flag[i] == '.' && !flag)
 		flag = '\0';
 	if (len != i)
 		width = ft_substr(node->flag, len, i - len + 1);
@@ -74,7 +74,7 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 		{
 			ft_memset(string, '0', len);
 			if (len > (int)ft_strlen(precision))
-				ft_memcpy(&string[len - ft_strlen(precision) + 1], precision, ft_strlen(precision) - 1);
+				ft_memcpy(&string[len - ft_strlen(precision)], precision, ft_strlen(precision));
 			else
 				ft_memcpy(string, precision, ft_strlen(precision) - 1);
 		}
