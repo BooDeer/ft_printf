@@ -79,13 +79,15 @@ void	ft_d_specifier(va_list args, t_list *node)
 	if (!precision)
 		precision = ft_strdup("1");
 	len = va_arg(args, int);
-	if (ft_atoi(width) == '0' && ft_atoi(precision) == '0' && len == '0')
+	if (ft_atoi(width) == 0 && ft_atoi(precision) == 0 && (len == 0 || ft_count(len) == 0))
 		string = ft_strdup("");
-	else if (ft_atoi(width) > ft_count(len) && ft_atoi(width) > ft_atoi(precision))
+	else if (ft_atoi(width) > ft_count(len) - 1&& ft_atoi(width) > ft_atoi(precision))
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 		ft_memset(string, ' ', ft_atoi(width));
-		if (flag == '-')
+		if (ft_atoi(precision) == 0 && len == 0)
+			;
+		else if (flag == '-')
 		{
 			ft_memset(string, '0', ft_atoi(precision));
 			if (ft_atoi(precision) > ft_count(len))
@@ -96,24 +98,50 @@ void	ft_d_specifier(va_list args, t_list *node)
 		else
 		{
 			ft_memset(&string[ft_atoi(width) - ft_atoi(precision)], '0', ft_atoi(precision));
-			ft_memcpy(&string[ft_atoi(width) - ft_count(len) + 1], ft_itoa(len), 
+			if (len < 0)
+			{
+				len *= -1;
+				if (ft_count(len) > ft_atoi(precision))
+					string[ft_atoi(width) - ft_count(len)] = '-';
+				else
+					string[ft_atoi(width) - ft_atoi(precision) - 1] = '-';
+			}
+			if (len == 0 && ft_atoi(precision) == 0)
+				;
+			else
+				ft_memcpy(&string[ft_atoi(width) - ft_count(len) + 1], ft_itoa(len),
 			ft_count(len));
 		}
 		string[ft_atoi(width)] = '\0';
 	}
 	else if (ft_atoi(precision) > ft_count(len))
 	{
-		string = (char *)malloc(sizeof(char) * ft_atoi(precision) + 1);
+		if (len < 0)
+		{	precision = ft_strdup(ft_itoa(ft_atoi(precision) + 1));
+			string = (char *)malloc(sizeof(char) * ft_atoi(precision) + 1);
+		}
+		else
+			string = (char *)malloc(sizeof(char) * ft_atoi(precision) + 1);
 		ft_memset(string, '0', ft_atoi(precision));
+		if (len < 0)
+		{
+			len *= -1;
+			string[0] = '-';
+		}
 		ft_strlcpy(&string[ft_atoi(precision) - ft_count(len) + 1], ft_itoa(len), 
 		ft_count(len));
 		string[ft_atoi(precision)] = '\0';
 	}
 	else
 	{
-		string = (char *)malloc(sizeof(char) * ft_count(len) + 1);
-		string = ft_strdup(ft_itoa(len));
-		string[ft_count(len)] = '\0';
+		if (len == 0 && (ft_atoi(precision) == 0 || ft_atoi(precision) == 1) && ft_count(len) == 1)
+			string = ft_strdup("");		
+		else
+		{
+			string = (char *)malloc(sizeof(char) * ft_count(len) + 1);
+			string = ft_strdup(ft_itoa(len));
+			string[ft_count(len)] = '\0';
+		}
 	}
 	node->str = string;
 }
