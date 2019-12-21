@@ -35,7 +35,7 @@ char	*ft_strrev(char *str)
 	return (str);
 }
 
-char	*ft_hexconv(int	c)
+char	*ft_hexconv(unsigned int	c)
 {
 	char 	*hex;
 	int		i;

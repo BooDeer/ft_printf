@@ -20,7 +20,7 @@
 void		ft_putstr(char *c);
 void		ft_putchar(char c);
 char		*ft_test(char c);
-char		*ft_hexconv(int	c);
+char		*ft_hexconv(unsigned int	c);
 int			skip_spefix(char c, char *set);
 void		get_ls(char	*str, t_list **root);
 void		ft_printf(const char *, ...);

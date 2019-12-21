@@ -76,6 +76,8 @@ void		ft_s_specifier(va_list args, t_list *node)
 		precision = ft_strdup("0");
 	len = ft_atoi(precision);
 	precision = va_arg(args, char *);
+	if (!precision)
+		precision = ft_strdup("(null)");
 	if (precision_exist(node, i) && len >= 0)
 			precision = ft_substr(precision, 0, len);
 	if (ft_atoi(width) > (int)ft_strlen(precision))

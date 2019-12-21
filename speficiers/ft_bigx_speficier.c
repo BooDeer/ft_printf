@@ -65,7 +65,7 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 	if (!precision)
 		precision = ft_strdup("1");
 	len = ft_atoi(precision);
-	precision = ft_hexconv(va_arg(args, int));
+	precision = ft_hexconv(va_arg(args, unsigned int));
 	if (ft_atoi(width) > (int)ft_strlen(precision) && ft_atoi(width) > len)
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
