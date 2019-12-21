@@ -77,6 +77,7 @@ int	main()
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
 	   printf("|%1.3x|\n",-7896);
 	   printf("|%1.3x|\n",-7896);
+	   
 	
 	return (0);
 }
