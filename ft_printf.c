@@ -30,8 +30,8 @@ void	ft_put_arg(va_list args, t_list *node,char c)
 		ft_d_specifier(args, node);
 	else if (c == '%')
 		ft_percent_specifier(args, node);
-	// else if (c == 'u')
-	// 	ft_u_speficier(args, node);
+	else if (c == 'u')
+		ft_u_specifier(args, node);
 	return ;			
 }
 
@@ -74,10 +74,9 @@ void		ft_printf(const char *str, ...)
 
 int	main()
 {
+	int c = 3;
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	   printf("|%1.3x|\n",-7896);
-	   printf("|%1.3x|\n",-7896);
-	   
-	
+	// ft_printf("|%u|\n", -2147483647);
+	   printf("|%p|\n", &c);
 	return (0);
 }
