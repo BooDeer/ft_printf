@@ -22,8 +22,8 @@ void	ft_put_arg(va_list args, t_list *node,char c)
 		ft_s_specifier(args, node);
 	// else if (c == 'p')
 	// 	ft_p_specifier(args, node);
-	// else if (c == 'x')
-	// 	ft_x_specifier(args, node);
+	else if (c == 'x')
+		ft_x_specifier(args, node);
 	else if (c == 'X')
 		ft_bigx_specifier(args, node);
 	else if (c == 'd' || c == 'i')
@@ -75,8 +75,8 @@ void		ft_printf(const char *str, ...)
 int	main()
 {
 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	   printf("|%1.3X|\n",	 0);
-	   printf("|%1.3X|\n",	 0);
+	   printf("|%1.3x|\n",-7896);
+	   printf("|%1.3x|\n",-7896);
 	
 	return (0);
 }

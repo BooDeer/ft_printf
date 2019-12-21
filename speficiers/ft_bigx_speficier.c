@@ -13,7 +13,7 @@
 #include "../libft/libft.h"
 #include "../srcs/ft_printf.h"
 
-void	ft_bigx_specifier(va_list args, t_list *node)
+char	*ft_bigx_specifier(va_list args, t_list *node)
 {
 	int		i;
 	char	*string = NULL;
@@ -26,7 +26,7 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 	precision = NULL;
 	i = 0;
 	if (!node)
-		return ;
+		return (NULL);
 	while (node->flag[i] == '-' || node->flag[i] == '0')
 		flag = node->flag[i++];
 	if (node->flag[i] == '*')
@@ -105,4 +105,5 @@ void	ft_bigx_specifier(va_list args, t_list *node)
 	}
 
 	node->str = string;
+	return (string);
 }
