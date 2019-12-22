@@ -58,7 +58,7 @@ void		ft_print_node(t_list **root)
 		temp = temp->next;
 	}
 }
-void		ft_printf(const char *str, ...)
+int		ft_printf(const char *str, ...)
 {
 	va_list		args;
 	t_list		*root;
@@ -69,14 +69,14 @@ void		ft_printf(const char *str, ...)
 	get_args(&root, args);
 	ft_print_node(&root);
 	
-	return ;
+	return 0;
 }
 
-int	main()
-{
-	char c = 'a';
-	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-	ft_printf("%p\n", &c);
-	   printf("%p\n", &c);
-	return (0);
-}
+// int	main()
+// {
+// 	char c = 'a';
+// 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
+// 	ft_printf("%p\n", &c);
+// 	   printf("%p\n", &c);
+// 	return (0);
+// }

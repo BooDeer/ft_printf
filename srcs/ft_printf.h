@@ -23,7 +23,7 @@ char		*ft_test(char c);
 char		*ft_hexconv(unsigned int	c);
 int			skip_spefix(char c, char *set);
 void		get_ls(char	*str, t_list **root);
-void		ft_printf(const char *, ...);
+int		    ft_printf(const char *, ...);
 void		ft_c_specifier(va_list args, t_list *node);
 void		ft_s_specifier(va_list args, t_list *node);
 void		ft_d_specifier(va_list args, t_list *node);
