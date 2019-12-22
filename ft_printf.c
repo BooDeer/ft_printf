@@ -75,12 +75,3 @@ int		ft_printf(const char *str, ...)
 	
 	return (val);
 }
-
-// int	main()
-// {
-// 	char c = 'a';
-// 	// ft_printf("%%without %sany %dvariadic %dargument!\n%s\n%s", "this is a test", "hehehehehhehe");
-// 	ft_printf("%p\n", &c);
-// 	   printf("%p\n", &c);
-// 	return (0);
-// }

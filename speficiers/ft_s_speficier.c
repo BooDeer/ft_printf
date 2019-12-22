@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:04:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/16 22:34:07 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/22 22:23:46 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			precision_exist(t_list *node, int i)
 {
-	while(node->flag[i] != '%')
+	while(node->flag[i] != '%' && node->flag[i])
 	{
 		if (node->flag[i] == '.')
 			return (1);
