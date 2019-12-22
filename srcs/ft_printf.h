@@ -30,6 +30,8 @@ void		ft_d_specifier(va_list args, t_list *node);
 char		*ft_bigx_specifier(va_list args, t_list *node);
 void	    ft_x_specifier(va_list args, t_list *node);
 void	    ft_u_specifier(va_list args, t_list *node);
+void	    ft_p_specifier(va_list args, t_list *node);
+char	    *ft_strrev(char *str);
 void		ft_percent_specifier(va_list args, t_list *node);
 
 #endif
