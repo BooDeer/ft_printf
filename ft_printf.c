@@ -47,29 +47,33 @@ void	get_args(t_list **root, va_list args)
 		temp = temp->next;
 	}
 }
-void		ft_print_node(t_list **root)
+int		ft_print_node(t_list **root)
 {
 	t_list	*temp;
+	int		val;
 
+	val = 0;
 	temp = *root;
 	while(temp)
 	{
 		ft_putstr(temp->str);
+		val += ft_strlen(temp->str);
 		temp = temp->next;
 	}
+	return (val);
 }
 int		ft_printf(const char *str, ...)
 {
 	va_list		args;
 	t_list		*root;
-
+	int			val;
 	root = NULL;
 	va_start(args, str);
 	get_ls((char *)str, &root);
 	get_args(&root, args);
-	ft_print_node(&root);
+	val = ft_print_node(&root);
 	
-	return 0;
+	return (val);
 }
 
 // int	main()
