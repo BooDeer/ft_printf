@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:37:36 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/02 17:41:16 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/23 15:35:57 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static char	*ft_hexconv1(size_t	c)
 
 	i = 0;
 	hex = (char *)malloc(sizeof(char) * 20);
+	if (!c)
+		hex[0] = '0';
 	while (c)
 	{
 		temp = c % 16;
@@ -92,7 +94,8 @@ void	ft_p_specifier(va_list args, t_list *node)
 	if (!precision)
 		precision = ft_strdup("1");
 	len = ft_atoi(precision);
-	precision = ft_strjoin("0x", ft_hexconv1(va_arg(args, size_t)));
+	precision = ft_strdup(ft_hexconv1(va_arg(args, size_t)));
+	precision = ft_strjoin("0x", precision);
 	if (ft_atoi(width) > (int)ft_strlen(precision) && ft_atoi(width) > len)
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
@@ -103,7 +106,7 @@ void	ft_p_specifier(va_list args, t_list *node)
 			if (len > (int)ft_strlen(precision))
 				ft_memcpy(&string[len - ft_strlen(precision)], precision, ft_strlen(precision));
 			else
-				ft_memcpy(string, precision, ft_strlen(precision) - 1);
+				ft_memcpy(string, precision, ft_strlen(precision));
 		}
 		else if (flag == '0')
 		{
@@ -130,6 +133,6 @@ void	ft_p_specifier(va_list args, t_list *node)
 		string = ft_strdup(precision);
 		string[ft_strlen(precision)] = '\0';
 	}
-
+	
 	node->str = string;
 }

@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:43 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/02 17:40:45 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/23 14:47:24 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ void	ft_x_specifier(va_list args, t_list *node)
 	char	*string;
 	size_t	i;
 
-	i = 0;
+	i = -1;
 	if (!node)
 		return ;
 	string = ft_bigx_specifier(args, node);
-	while (string[i])
-	{
+	while (string[++i])
 		if (ft_isalpha(string[i]))
 			string[i] = ft_tolower(string[i]);
-	}
 	node->str = string;
 }
