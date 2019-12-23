@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/18 18:59:02 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/23 16:19:09 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_put_arg(va_list args, t_list *node,char c)
 	else if (c == 'X')
 		ft_bigx_specifier(args, node);
 	else if (c == 'd' || c == 'i')
-		ft_d_specifier(args, node);
+		ft_d_specifier(	args, node);
 	else if (c == '%')
 		ft_percent_specifier(args, node);
 	else if (c == 'u')

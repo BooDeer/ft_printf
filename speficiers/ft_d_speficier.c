@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:16:56 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/18 15:34:03 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/23 20:35:27 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,16 @@ void	ft_d_specifier(va_list args, t_list *node)
 		width = ft_strdup("1");
 	if (!precision)
 		precision = ft_strdup("1");
+	// else
+		// precision = ft_strdup("-1");
 	len = va_arg(args, int);
 	if (ft_atoi(width) == 0 && ft_atoi(precision) == 0 && (len == 0 || ft_count(len) == 0))
 		string = ft_strdup("");
-	else if (ft_atoi(width) > ft_count(len) - 1&& ft_atoi(width) > ft_atoi(precision))
+	else if (ft_atoi(width) > ft_count(len) - 2 && ft_atoi(width) > ft_atoi(precision))
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 		ft_memset(string, ' ', ft_atoi(width));
-		if (ft_atoi(precision) == 0 && len == 0)
+		if ((ft_atoi(precision) == 0  || ft_atoi(precision) == 1) && len == 0)
 			;
 		else if (flag == '-')
 		{
@@ -97,11 +99,16 @@ void	ft_d_specifier(va_list args, t_list *node)
 		}
 		else
 		{
-			ft_memset(&string[ft_atoi(width) - ft_atoi(precision)], '0', ft_atoi(precision));
+			if (flag == '0')
+				ft_memset(string, '0', ft_atoi(width));
+			// if (ft_atoi(precision) != -1)
+				ft_memset(&string[ft_atoi(width) - ft_atoi(precision)], '0', ft_atoi(precision));
 			if (len < 0)
 			{
 				len *= -1;
-				if (ft_count(len) > ft_atoi(precision))
+				if (flag == '0')
+					string[0] = '-';
+				else if (ft_count(len) > ft_atoi(precision))
 					string[ft_atoi(width) - ft_count(len)] = '-';
 				else
 					string[ft_atoi(width) - ft_atoi(precision) - 1] = '-';
