@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 22:11:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/24 15:42:01 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/24 15:55:53 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 
 int     main()
 {
-    ft_printf("%1.3s\n",NULL);
-	   printf("%1.3s\n",NULL);
+    ft_printf("%.0d\n",0);
+	   printf("%.0d\n",0);
 }   
