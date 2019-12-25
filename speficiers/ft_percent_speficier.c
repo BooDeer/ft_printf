@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:36 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/11 18:39:22 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/25 15:23:28 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	ft_percent_specifier(va_list args, t_list *node)
 	int		len;
 
 	width = NULL;
+	flag = '\0';
 	len = 0;
 	i = 0;
 	if (!node)
