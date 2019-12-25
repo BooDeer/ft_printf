@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/11 15:24:50 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/25 18:03:43 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static	int		get_index(char *str, int start)
 	}
 	return (0);
 }
-static	int		check_index(char str)
+static	int		check_index(char str, int i)
 {
 	char	*cnv;
 	int		j;
@@ -47,7 +47,7 @@ static	int		check_index(char str)
 	j = 0;
 	while(cnv[j])
 	{
-		if (str == cnv[j])
+		if (str == cnv[j] && i != 0)
 			return (0);
 		j++;
 	}
@@ -78,7 +78,7 @@ void	get_ls(char	*str, t_list **root)
 		}
 		else if ((str[i + 1] == '%' || str[i + 1] == '\0') && str[i] != '%')
 		{
-			if (check_index(str[start]))
+			if (check_index(str[start], start))
 				ft_lstadd_back(root, ft_lstnew(ft_substr(str, start, (i - start) + 1), '\0', NULL));
 			else
 				ft_lstadd_back(root, ft_lstnew(ft_substr(str, start +1, (i - start)), '\0', NULL));
