@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 18:41:03 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/01 15:02:13 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/26 14:51:22 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef	struct	z_list
 	char				*str;
 	char				cnv;
 	char				*flag;
+	int					c;
 	struct z_list		*next;
 }				t_list;
 

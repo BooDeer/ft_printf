@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:43:31 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/25 15:29:13 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/26 12:20:30 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,24 @@ char	*ft_bigx_specifier(va_list args, t_list *node)
 		precision = ft_substr(node->flag, len , i - len + 1);
 	if (!width)
 		width = ft_strdup("1");
-	if (!precision)
-		precision = ft_strdup("1");
+	if (!precision || node->flag[i - 1] == '.')
+		(precision = ft_strdup("1"));
 	len = ft_atoi(precision);
 	precision = ft_hexconv(va_arg(args, unsigned int));
+	if (*precision == '\0' && len)
+		precision = ft_strdup("");
 	if (ft_atoi(width) > (int)ft_strlen(precision) && ft_atoi(width) > len)
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 		ft_memset(string, ' ', ft_atoi(width));
 		if (flag == '-')
 		{
-			ft_memset(string, '0', len);
+			if (len != 1)
+				ft_memset(string, '0', len);
 			if (len > (int)ft_strlen(precision))
 				ft_memcpy(&string[len - ft_strlen(precision)], precision, ft_strlen(precision));
 			else
-				ft_memcpy(string, precision, ft_strlen(precision) - 1);
+				ft_memcpy(string, precision, ft_strlen(precision));
 		}
 		else if (flag == '0')
 		{
