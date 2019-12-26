@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 19:02:42 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/10/27 00:22:55 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/25 18:58:23 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	size_t					i;
 
 	i = 0;
+	if (n > 18446744073709551)
+		n++;
 	source = (unsigned char *)src;
 	str = (unsigned char *)dst;
 	if (!str && !source)

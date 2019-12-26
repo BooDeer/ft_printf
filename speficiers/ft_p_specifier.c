@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:37:36 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/23 15:35:57 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/25 22:58:18 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static char	*ft_hexconv1(size_t	c)
 	char 	*hex;
 	int		i;
 	int		temp;
+
 
 	i = 0;
 	hex = (char *)malloc(sizeof(char) * 20);
@@ -91,11 +92,15 @@ void	ft_p_specifier(va_list args, t_list *node)
 		precision = ft_substr(node->flag, len , i - len + 1);
 	if (!width)
 		width = ft_strdup("1");
-	if (!precision)
-		precision = ft_strdup("1");
+	(precision || node->flag[i - 1] == '.') ? (precision = ft_strdup("1")) :  (precision = ft_strdup("0"));
 	len = ft_atoi(precision);
 	precision = ft_strdup(ft_hexconv1(va_arg(args, size_t)));
-	precision = ft_strjoin("0x", precision);
+	if (*precision == '0' && len) 
+	{	precision = ft_strdup("");
+		precision = ft_strjoin("0x", precision);
+	}
+	else
+		precision = ft_strjoin("0x", precision);	
 	if (ft_atoi(width) > (int)ft_strlen(precision) && ft_atoi(width) > len)
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
