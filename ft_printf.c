@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 20:31:22 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/26 20:53:23 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		ft_print_node(t_list **root)
 			else
 			{
 				ft_putstr(temp->str);
-				val++;
+				val += ft_strlen(temp->str);
 			}
 			
 		}

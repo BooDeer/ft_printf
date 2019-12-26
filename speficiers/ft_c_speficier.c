@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:30:25 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 20:38:15 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/26 20:55:02 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_c_specifier(va_list args, t_list *node)
 		i++;
 	if (len != i)
 		width = ft_substr(node->flag,len, i - len + 1);
-	if (!width)
+	if (!width || ft_atoi(width) == 0)
 		width = ft_strdup("1");
 	string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 	string[ft_atoi(width)] = '\0';
