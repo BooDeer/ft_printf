@@ -6,13 +6,13 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:30:25 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 15:46:38 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/26 20:38:15 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../srcs/ft_printf.h"
-
+#include <stdio.h>
 void	ft_c_specifier(va_list args, t_list *node)
 {
 	int		i;
@@ -25,6 +25,7 @@ void	ft_c_specifier(va_list args, t_list *node)
 	i = 0;
 	if (!node)
 		return ;
+	node->c = 0;
 	while(node->flag[i] == '-')
 		flag = node->flag[i++];
 	if (node->flag[i] == '*')
@@ -45,23 +46,22 @@ void	ft_c_specifier(va_list args, t_list *node)
 	if (!width)
 		width = ft_strdup("1");
 	string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
+	string[ft_atoi(width)] = '\0';
 	ft_memset(string, ' ', ft_atoi(width));
 	if (flag == '-')
 	{
 		string[0] = va_arg(args, int);
-		if (string[0] == '\0' && flag == '-')
+		if (!string[0])
+		{
+			string = &string[1];
 			node->c = 2;
-		else
-			node->c = 0;
+		}
 	}
 	else
 	{
 		string[ft_atoi(width) - 1] = va_arg(args, int);	
 		if (string[ft_atoi(width) - 1] == '\0' && node->flag)
 			node->c = 1;
-		else
-			node->c = 0;
 	}
-	string[ft_atoi(width)] = '\0';
-	node->str = ft_strdup(string);
+	node->str = string;
 }

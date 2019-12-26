@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 15:48:20 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/26 20:31:22 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ int		ft_print_node(t_list **root)
 {
 	t_list	*temp;
 	int		val;
+	int	a;
 
+	a = '\0';
 	val = 0;
 	temp = *root;
 	while(temp)
@@ -60,17 +62,15 @@ int		ft_print_node(t_list **root)
 		{
 			if (temp->c == 2)
 			{
-				ft_putchar(*temp->str);
-				val += ft_strlen(temp->str);
-				ft_putstr(++temp->str);
-				val++;
+				ft_putchar(a);
+				ft_putstr(temp->str);
+				val += ft_strlen(temp->str) + 1;
 			}
 			else if (temp->c == 1)
 			{
 				ft_putstr(temp->str);
-				val++;
-				ft_putchar(temp->str[ft_strlen(temp->str)]);
-				val += ft_strlen(temp->str);
+				ft_putchar(a);
+				val += ft_strlen(temp->str) + 1;
 			}
 			else
 			{
