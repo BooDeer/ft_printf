@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:40 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/27 15:03:09 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/27 15:18:14 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	ft_u_specifier(va_list args, t_list *node)
 		precision = ft_substr(node->flag, len , i - len + 1);
 	if (!width)
 		width = ft_strdup("0");
-	if (!precision && node->flag[i] == '.')
+	if (!precision && precision_exist(node, i))
 		precision = ft_strdup("0");
 	else if (!precision)
 		precision = ft_strdup("-1");

@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 20:37:43 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/18 17:43:16 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/27 15:17:22 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void		ft_d_specifier(va_list args, t_list *node);
 char		*ft_bigx_specifier(va_list args, t_list *node);
 void	    ft_x_specifier(va_list args, t_list *node);
 void	    ft_u_specifier(va_list args, t_list *node);
+int			precision_exist(t_list *node, int i);
 void	    ft_p_specifier(va_list args, t_list *node);
 char	    *ft_strrev(char *str);
 void		ft_percent_specifier(va_list args, t_list *node);
