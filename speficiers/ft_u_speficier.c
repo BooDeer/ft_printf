@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:40 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 21:02:19 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/27 15:03:09 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	ft_u_specifier(va_list args, t_list *node)
 		precision = ft_substr(node->flag, len , i - len + 1);
 	if (!width)
 		width = ft_strdup("0");
-	if (!precision && node->flag[i - 1] == '.')
+	if (!precision && node->flag[i] == '.')
 		precision = ft_strdup("0");
 	else if (!precision)
 		precision = ft_strdup("-1");
@@ -146,11 +146,11 @@ void	ft_u_specifier(va_list args, t_list *node)
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi1(width) + 1);
 		ft_memset(string, ' ', ft_atoi1(width));
-		if ((ft_atoi1(precision) == 0 || ft_atoi1(precision)) && len == 0)
+		if (ft_atoi1(precision) == 0 && len == 0)
 			;
 		else if (flag == '-')
 		{
-			if (ft_atoi1(precision) != -1)
+			if (ft_atoi(precision) != -1)
 				ft_memset(string, '0', ft_atoi1(precision));
 			if (ft_atoi(precision) > ft_count(len))
 				ft_memcpy(&string[ft_atoi1(precision) - ft_count(len) + 1], ft_itoa1(len), ft_count(len) - 1);
@@ -159,7 +159,8 @@ void	ft_u_specifier(va_list args, t_list *node)
 		}
 		else
 		{
-			ft_memset(&string[ft_atoi1(width) - ft_atoi1(precision)], '0', ft_atoi1(precision));
+			if (ft_atoi(precision) != -1)
+				ft_memset(&string[ft_atoi1(width) - ft_atoi1(precision)], '0', ft_atoi1(precision));
 			if (len == 0 && ft_atoi1(precision) == 0)
 				;
 			else
