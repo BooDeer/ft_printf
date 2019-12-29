@@ -1,3 +1,4 @@
+  
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -61,20 +62,24 @@ char	*ft_bigx_specifier(va_list args, t_list *node)
 	if (len != i)
 		precision = ft_substr(node->flag, len , i - len + 1);
 	if (!width)
-		width = ft_strdup("1");
-	if (!precision || node->flag[i - 1] == '.')
-		(precision = ft_strdup("1"));
+		width = ft_strdup("0");
+	if (!precision && precision_exist(node, i))
+		precision = ft_strdup("-1");
+	else if (!precision)
+		precision = ft_strdup("1");
 	len = ft_atoi(precision);
 	precision = ft_hexconv(va_arg(args, unsigned int));
-	if (*precision == '\0' && len)
+	if (*precision == '\0' && len == -1)
 		precision = ft_strdup("");
+	else if (*precision == '\0' && len)
+		precision = ft_strdup("0");	
 	if (ft_atoi(width) > (int)ft_strlen(precision) && ft_atoi(width) > len)
 	{
 		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
 		ft_memset(string, ' ', ft_atoi(width));
 		if (flag == '-')
 		{
-			if (len != 1)
+			if (len != -1)
 				ft_memset(string, '0', len);
 			if (len > (int)ft_strlen(precision))
 				ft_memcpy(&string[len - ft_strlen(precision)], precision, ft_strlen(precision));
@@ -87,8 +92,9 @@ char	*ft_bigx_specifier(va_list args, t_list *node)
 			ft_memcpy(&string[ft_atoi(width) - ft_strlen(precision)], precision, ft_strlen(precision));
 		}
 		else
-		{
-			ft_memset(&string[ft_atoi(width) - len], '0', len);
+		{	
+			if (len != -1)
+				ft_memset(&string[ft_atoi(width) - len], '0', len);
 			ft_memcpy(&string[ft_atoi(width) - ft_strlen(precision)], precision, ft_strlen(precision));
 		}
 		
