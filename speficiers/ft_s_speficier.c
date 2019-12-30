@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:04:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/24 15:48:37 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/30 18:08:50 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,24 @@ int			precision_exist(t_list *node, int i)
 void		ft_s_specifier(va_list args, t_list *node)
 {
 	int		i;
-	char	*string = NULL;
-	char	flag;
-	char	*width;
 	int		len;
-	char	*precision;
 
+	t_printf s;
 	i = 0;
-	precision = NULL;
-	width = NULL;
+	s.flag = '\0';
+	s.precision = NULL;
+	s.width = NULL;
 	if (!node)
 		return ;
 	while (node->flag[i] == '-' || node->flag[i] == '0')
-		flag = node->flag[i++];
+		s.flag = node->flag[i++];
 	if (node->flag[i] == '*')
 	{
-		width = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_atoi(width) < 0)
+		s.width = ft_strdup(ft_itoa(va_arg(args, int)));
+		if (ft_atoi(s.width) < 0)
 		{
-			width++;
-			flag = '-';
+			s.width++;
+			s.flag = '-';
 		}
 		i++;
 	}
@@ -54,49 +52,49 @@ void		ft_s_specifier(va_list args, t_list *node)
 	while(ft_isdigit(node->flag[i]))
 		i++;
 	if (len != i)
-		width = ft_substr(node->flag, len, i - len + 1);
+		s.width = ft_substr(node->flag, len, i - len + 1);
 	if (node->flag[i] == '.')
 		i++;
 	if (node->flag[i] == '*')
 	{
-		precision = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_atoi(precision) < 0)
-			precision = ft_strdup("-2");
+		s.precision = ft_strdup(ft_itoa(va_arg(args, int)));
+		if (ft_atoi(s.precision) < 0)
+			s.precision = ft_strdup("-2");
 		i++;
 	}
 	len = i;
 	while(ft_isdigit(node->flag[i]))
 		i++;
 	if (len != i)
-		precision = ft_substr(node->flag, len , i - len + 1);
-	if (!width)
-		width = ft_strdup("0");
-	if (!precision && node->flag[i] == '.')
-		precision = ft_strdup("0");
-	else if (!precision)
-		precision = ft_strdup("0");
-	len = ft_atoi(precision);
-	precision = va_arg(args, char *);
-	if (!precision)
-		precision = ft_strdup("(null)");
+		s.precision = ft_substr(node->flag, len , i - len + 1);
+	if (!s.width)
+		s.width = ft_strdup("0");
+	if (!s.precision && node->flag[i] == '.')
+		s.precision = ft_strdup("0");
+	else if (!s.precision)
+		s.precision = ft_strdup("0");
+	len = ft_atoi(s.precision);
+	s.precision = va_arg(args, char *);
+	if (!s.precision)
+		s.precision = ft_strdup("(null)");
 	if (precision_exist(node, i) && len >= 0)
-			precision = ft_substr(precision, 0, len);
-	if (ft_atoi(width) > (int)ft_strlen(precision))
+			s.precision = ft_substr(s.precision, 0, len);
+	if (ft_atoi(s.width) > (int)ft_strlen(s.precision))
 	{
-		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
-		ft_memset(string, ' ', ft_atoi(width));
-		if (ft_strlen(precision))
+		s.string = (char *)malloc(sizeof(char) * ft_atoi(s.width) + 1);
+		ft_memset(s.string, ' ', ft_atoi(s.width));
+		if (ft_strlen(s.precision))
 		{
-			if (flag == '-')
-				ft_memmove(string, precision, ft_strlen(precision));
+			if (s.flag == '-')
+				ft_memmove(s.string, s.precision, ft_strlen(s.precision));
 			else
-				ft_strlcpy(&string[ft_atoi(width) - ft_strlen(precision)] , precision, ft_strlen(precision) + 1);
-			string[ft_atoi(width)] = '\0';
+				ft_strlcpy(&s.string[ft_atoi(s.width) - ft_strlen(s.precision)] , s.precision, ft_strlen(s.precision) + 1);
+			s.string[ft_atoi(s.width)] = '\0';
 		}
-		else if (ft_atoi(width) == 1)
-			string[ft_atoi(width)] = '\0';
+		else if (ft_atoi(s.width) == 1)
+			s.string[ft_atoi(s.width)] = '\0';
 	}
 	else
-		string = ft_strdup(precision);
-	node->str = string;
+		s.string = ft_strdup(s.precision);
+	node->str = s.string;
 }

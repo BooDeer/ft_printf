@@ -17,103 +17,100 @@
 char	*ft_bigx_specifier(va_list args, t_list *node)
 {
 	int		i;
-	char	*string = NULL;
-	char	flag;
-	char	*width;
 	int		len;
-	char	*precision;
 
-	width = NULL;
-	precision = NULL;
+	t_printf bigx;
+	bigx.width = NULL;
+	bigx.precision = NULL;
 	i = 0;
 	if (!node)
 		return (NULL);
 	while (node->flag[i] == '-' || node->flag[i] == '0')
-		flag = node->flag[i++];
+		bigx.flag = node->flag[i++];
 	if (node->flag[i] == '*')
 	{
-		width = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_atoi(width) < 0)
+		bigx.width = ft_strdup(ft_itoa(va_arg(args, int)));
+		if (ft_atoi(bigx.width) < 0)
 		{
-			width++;
-			flag = '-';
+			bigx.width++;
+			bigx.flag = '-';
 		}
 		i++;
 	}
 	len = i;
 	while(ft_isdigit(node->flag[i]))
 		i++;
-	if (node->flag[i] == '.' && !flag)
-		flag = '\0';
+	if (node->flag[i] == '.' && !bigx.flag)
+		bigx.flag = '\0';
 	if (len != i)
-		width = ft_substr(node->flag, len, i - len + 1);
+		bigx.width = ft_substr(node->flag, len, i - len + 1);
 	if (node->flag[i] == '.')
 		i++;
 	if (node->flag[i] == '*')
 	{
-		precision = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_atoi(precision) < 0)
-			precision = ft_strdup("1");
+		bigx.precision = ft_strdup(ft_itoa(va_arg(args, int)));
+		if (ft_atoi(bigx.precision) < 0)
+			bigx.precision = ft_strdup("1");
 		i++;
 	}
 	len = i;
 	while(ft_isdigit(node->flag[i]))
 		i++;
 	if (len != i)
-		precision = ft_substr(node->flag, len , i - len + 1);
-	if (!width)
-		width = ft_strdup("0");
-	if (!precision && precision_exist(node, i))
-		precision = ft_strdup("-1");
-	else if (!precision)
-		precision = ft_strdup("1");
-	len = ft_atoi(precision);
-	precision = ft_hexconv(va_arg(args, unsigned int));
-	if (*precision == '\0' && len == -1)
-		precision = ft_strdup("");
-	else if (*precision == '\0' && len)
-		precision = ft_strdup("0");	
-	if (ft_atoi(width) > (int)ft_strlen(precision) && ft_atoi(width) > len)
+		bigx.precision = ft_substr(node->flag, len , i - len + 1);
+	if (!bigx.width)
+		bigx.width = ft_strdup("0");
+	if (!bigx.precision && precision_exist(node, i))
+		bigx.precision = ft_strdup("-1");
+	else if (!bigx.precision)
+		bigx.precision = ft_strdup("1");
+	len = ft_atoi(bigx.precision);
+	bigx.precision = ft_hexconv(va_arg(args, unsigned int));
+	if (*bigx.precision == '\0' && len == -1)
+		bigx.precision = ft_strdup("");
+	else if (*bigx.precision == '\0' && len)
+		bigx.precision = ft_strdup("0");	
+	if (ft_atoi(bigx.width) > (int)ft_strlen(bigx.precision) && ft_atoi(bigx.width) > len)
 	{
-		string = (char *)malloc(sizeof(char) * ft_atoi(width) + 1);
-		ft_memset(string, ' ', ft_atoi(width));
-		if (flag == '-')
+		bigx.string = (char *)malloc(sizeof(char) * ft_atoi(bigx.width) + 1);
+		ft_memset(bigx.string, ' ', ft_atoi(bigx.width));
+		if (bigx.flag == '-')
 		{
 			if (len != -1)
-				ft_memset(string, '0', len);
-			if (len > (int)ft_strlen(precision))
-				ft_memcpy(&string[len - ft_strlen(precision)], precision, ft_strlen(precision));
+				ft_memset(bigx.string, '0', len);
+			if (len > (int)ft_strlen(bigx.precision))
+				ft_memcpy(&bigx.string[len - ft_strlen(bigx.precision)], bigx.precision, ft_strlen(bigx.precision));
 			else
-				ft_memcpy(string, precision, ft_strlen(precision));
+				ft_memcpy(bigx.string, bigx.precision, ft_strlen(bigx.precision));
 		}
-		else if (flag == '0')
+		else if (bigx.flag == '0')
 		{
-			ft_memset(string, '0', ft_atoi(width));
-			ft_memcpy(&string[ft_atoi(width) - ft_strlen(precision)], precision, ft_strlen(precision));
+			ft_memset(bigx.string, '0', ft_atoi(bigx.width));
+			ft_memcpy(&bigx.string[ft_atoi(bigx.width) - ft_strlen(bigx.precision)], bigx.precision, ft_strlen(bigx.precision));
 		}
 		else
 		{	
 			if (len != -1)
-				ft_memset(&string[ft_atoi(width) - len], '0', len);
-			ft_memcpy(&string[ft_atoi(width) - ft_strlen(precision)], precision, ft_strlen(precision));
+				ft_memset(&bigx.string[ft_atoi(bigx.width) - len], '0', len);
+			ft_memcpy(&bigx.string[ft_atoi(bigx.width) - ft_strlen(bigx.precision)], bigx.precision, ft_strlen(bigx.precision));
 		}
 		
-		string[ft_atoi(width)] = '\0';
+		bigx.string[ft_atoi(bigx.width)] = '\0';
 	}
-	else if (len > (int)ft_strlen(precision))
+	else if (len > (int)ft_strlen(bigx.precision))
 	{
-		string = (char *)malloc(sizeof(char) * len + 1);
-		ft_memset(string, '0', len);
-		ft_strlcpy(&string[len - ft_strlen(precision)], precision, ft_strlen(precision) + 1);
-		string[len] = '\0';
+		bigx.string = (char *)malloc(sizeof(char) * len + 1);
+		ft_memset(bigx.string, '0', len);
+		ft_strlcpy(&bigx.string[len - ft_strlen(bigx.precision)], bigx.precision, ft_strlen(bigx.precision) + 1);
+		bigx.string[len] = '\0';
 	}
 	else
 	{
-		string = (char *)malloc(sizeof(char)* ft_strlen(precision) + 1);
-		string = ft_strdup(precision);
-		string[ft_strlen(precision)] = '\0';
+		bigx.string = (char *)malloc(sizeof(char)* ft_strlen(bigx.precision) + 1);
+		bigx.string = ft_strdup(bigx.precision);
+		bigx.string[ft_strlen(bigx.precision)] = '\0';
 	}
 
-	node->str = string;
-	return (string);
+	node->str = bigx.string;
+	return (bigx.string);
 }
