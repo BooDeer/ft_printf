@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 22:11:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/29 16:36:38 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/30 15:47:48 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,9 @@ int     main()
     int a = 0,b;
 
 	
-    a = ft_printf("Bla bla %*x\n", -15, 0);
-	b =    printf("Bla bla %*x\n", -15, 0);
+    a = ft_printf("Bla bla %*.10d\n", -15, -12345678);
+	b =    printf("Bla bla %*.10d\n", -15, -12345678);
 	
-	
-	// a = ft_printf("Bla bla %*.*x\n", -15, 0, 0);
-	// b =    printf("Bla bla %*.*x\n", -15, 0, 0);
-
-
-	// a = ft_printf("Bla bla %.x\n", 0);
-	// b =    printf("Bla bla %.x\n", 0);
-
     printf("%d\n%d\n", a,b);
 
 	

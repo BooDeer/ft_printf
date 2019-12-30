@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:16:56 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/25 19:14:59 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/30 15:45:54 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_d_specifier(va_list args, t_list *node)
 	{
 		precision = ft_strdup(ft_itoa(va_arg(args, int)));
 		if (ft_atoi(precision) < 0)
-			precision = ft_strdup("1");
+			precision = ft_strdup("-1");
 		i++;
 	}
 	len = i;
@@ -94,7 +94,17 @@ void	ft_d_specifier(va_list args, t_list *node)
 			if (ft_atoi(precision) != -1)
 				ft_memset(string, '0', ft_atoi(precision));
 			if (ft_atoi(precision) > ft_count(len))
-				ft_memcpy(&string[ft_atoi(precision) - ft_count(len) + 1], ft_itoa(len), ft_count(len) - 1);
+			{
+				if (len < 0)
+				{
+					len *= -1;
+					string[0] = '-';
+					ft_memcpy(&string[ft_atoi(precision) - ft_count(len) + 2], ft_itoa(len), ft_count(len) - 1);
+
+				}
+				else
+					ft_memcpy(&string[ft_atoi(precision) - ft_count(len) + 1], ft_itoa(len), ft_count(len) - 1);
+			}
 			else
 				ft_memcpy(string, ft_itoa(len), ft_count(len) - 1);			
 		}
