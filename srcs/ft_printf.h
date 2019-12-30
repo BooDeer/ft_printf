@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 20:37:43 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/30 16:51:31 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/30 20:21:09 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ typedef struct	s_printf
 	char	*width;
 	char	flag;
 }				t_printf;
+
+typedef struct	s_indexes
+{
+	size_t	i;
+	size_t	start;
+	size_t	skipcnv;
+}				t_index;
 
 void			ft_putstr(char *c);
 void			ft_putchar(char c);

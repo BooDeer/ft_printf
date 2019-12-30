@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_DeciToHex.c                                     :+:      :+:    :+:   */
+/*   ft_decitohex.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:59:50 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/27 15:31:58 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/30 18:33:33 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ char	*ft_strrev(char *str)
 	return (str);
 }
 
-char	*ft_hexconv(unsigned int	c)
+char	*ft_hexconv(unsigned int c)
 {
-	char 	*hex;
+	char	*hex;
 	int		i;
 	int		temp;
 
@@ -58,6 +58,6 @@ char	*ft_hexconv(unsigned int	c)
 		}
 		c /= 16;
 	}
-	hex = ft_strrev(hex);	
+	hex = ft_strrev(hex);
 	return (hex);
 }

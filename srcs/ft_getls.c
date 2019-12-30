@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 14:54:24 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/30 20:20:08 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 #include "../srcs/ft_printf.h"
 
 /*
-* This function allows us to know the length of
-* the string starting from the '%' until the
-* first speficier encountered
+** 	This function allows us to know the length of
+**	the string starting from the '%' until the
+** 	first speficier encountered
 */
-static	int		get_index(char *str, int start)
+
+static int		get_index(char *str, int start)
 {
 	char	*cnv;
 	int		j;
 
 	cnv = "cspdiuxX%";
 	j = 0;
-	while(str[start])
+	while (str[start])
 	{
-		while(cnv[j])
+		while (cnv[j])
 		{
 			if (str[start] == cnv[j])
 				return (start);
@@ -38,14 +39,15 @@ static	int		get_index(char *str, int start)
 	}
 	return (0);
 }
-static	int		check_index(char str, int i)
+
+static int		check_index(char str, int i)
 {
 	char	*cnv;
 	int		j;
 
 	cnv = "cspdiuxX%";
 	j = 0;
-	while(cnv[j])
+	while (cnv[j])
 	{
 		if (str == cnv[j] && i != 0)
 			return (0);
@@ -53,37 +55,37 @@ static	int		check_index(char str, int i)
 	}
 	return (1);
 }
-/*
-* This function allows us to get each string or combinaison of
-* flags, width and precision in seperated nodes
-*
-*/
-void	get_ls(char	*str, t_list **root)
-{
-	size_t	i;
-	size_t	start;
-	size_t	skipcnv;                                                              
 
-	start = 0;
-	i = -1;
-	while(str[++i])
+/*
+** This function allows us to get each string or combinaison of
+** flags, width and precision in seperated nodes
+*/
+
+void			get_ls(char *s, t_list **root)
+{
+	t_index z;
+
+	z.start = 0;
+	z.i = -1;
+	while (s[++z.i])
 	{
-		if (str[i] == '%')
+		if (s[z.i] == '%')
 		{
-			start = i + 1;
-			skipcnv = get_index(str, start);
-			ft_lstadd_back(root, ft_lstnew(NULL, *ft_substr(str, skipcnv, 1), ft_substr(str, i + 1,skipcnv - i - 1)));
-			start = skipcnv;
-			i = skipcnv;
+			z.start = z.i + 1;
+			z.skipcnv = get_index(s, z.start);
+			ft_lstadd_back(root, ft_lstnew(NULL, *ft_substr(s, z.skipcnv, 1),
+			(ft_substr(s, z.i + 1, z.skipcnv - z.i - 1))));
+			z.start = z.skipcnv;
+			z.i = z.skipcnv;
 		}
-		else if ((str[i + 1] == '%' || str[i + 1] == '\0') && str[i] != '%')
+		else if ((s[z.i + 1] == '%' || s[z.i + 1] == '\0') && s[z.i] != '%')
 		{
-			if (check_index(str[start], start))
-				ft_lstadd_back(root, ft_lstnew(ft_substr(str, start, (i - start) + 1), '\0', NULL));
+			if (check_index(s[z.start], z.start))
+				ft_lstadd_back(root, ft_lstnew(ft_substr(s, z.start,
+				(z.i - z.start) + 1), '\0', NULL));
 			else
-				ft_lstadd_back(root, ft_lstnew(ft_substr(str, start +1, (i - start)), '\0', NULL));
+				ft_lstadd_back(root, ft_lstnew(ft_substr(s, z.start + 1,
+				(z.i - z.start)), '\0', NULL));
 		}
 	}
-	
-	return ;
 }
