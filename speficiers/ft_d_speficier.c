@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:16:56 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/30 15:45:54 by hboudhir         ###   ########.fr       */
+/*   Updated: 2019/12/30 15:51:44 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_d_specifier(va_list args, t_list *node)
 		{	
 			if (ft_atoi(precision) != -1)
 				ft_memset(string, '0', ft_atoi(precision));
-			if (ft_atoi(precision) > ft_count(len))
+			if (ft_atoi(precision) > ft_count(len) - 1)
 			{
 				if (len < 0)
 				{
