@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:43:31 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/31 21:58:01 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 18:43:27 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@
 static int		ft_norme01(t_printf *a, t_list *node, va_list args)
 {
 	int		i;
-
+	char	*tmp;
 	i = 0;
-	a->width = NULL;
-	a->precision = NULL;
 	while (node->flag[i] == '-' || node->flag[i] == '0')
 		a->flag = node->flag[i++];
 	if (node->flag[i] == '*')
@@ -27,8 +25,10 @@ static int		ft_norme01(t_printf *a, t_list *node, va_list args)
 		a->width = ft_itoa(va_arg(args, int));
 		if (ft_atoi(a->width) < 0)
 		{
-			a->width++;
+			tmp = a->width;
+			a->width = ft_strdup(++a->width);
 			a->flag = '-';
+			free(tmp);
 		}
 		i++;
 	}
@@ -52,7 +52,10 @@ static int		ft_norme02(t_printf *a, t_list *node, va_list args, int i)
 	{
 		a->precision = ft_itoa(va_arg(args, int));
 		if (ft_atoi(a->precision) < 0)
-			a->precision = "1";
+		{
+			free(a->precision);
+			a->precision = ft_strdup("1");
+		}
 		i++;
 	}
 	return (i);
@@ -68,17 +71,24 @@ static	int		ft_norme03(t_printf *a, t_list *node, va_list args, int i)
 	if (len != i)
 		a->precision = ft_substr(node->flag, len, i - len + 1);
 	if (!a->width)
-		a->width = "0";
+		a->width = ft_strdup("0");
 	if (!a->precision && precision_exist(node, i))
-		a->precision = "-1";
+		a->precision = ft_strdup("-1");
 	else if (!a->precision)
-		a->precision = "1";
+		a->precision = ft_strdup("1");
 	len = ft_atoi(a->precision);
-	a->precision = ft_hexconv(va_arg(args, unsigned int));
+	ft_hexconv(va_arg(args, unsigned int), a);
 	if (*a->precision == '\0' && len == -1)
-		a->precision = "";
+	{
+		free(a->precision);
+		a->precision = ft_strdup("");
+	}
 	else if (*a->precision == '\0' && len)
-		a->precision = "0";
+	{
+		if (a->precision)
+			free(a->precision);
+		a->precision = ft_strdup("0");
+	}
 	return (len);
 }
 
@@ -130,9 +140,9 @@ static	void	ft_norme05(t_printf *a, int len)
 	}
 	else
 	{
-		a->string = (char *)malloc(sizeof(char) * ft_strlen(a->precision) + 1);
 		a->string = ft_strdup(a->precision);
 		a->string[ft_strlen(a->precision)] = '\0';
+		free(a->precision);
 	}
 }
 
@@ -142,9 +152,7 @@ char			*ft_bigx_specifier(va_list args, t_list *node)
 	int			i;
 	t_printf	*bigx;
 
-	bigx = (t_printf *)malloc(sizeof(t_printf));
-	bigx->width = NULL;
-	bigx->precision = NULL;
+	bigx = initializing();
 	i = ft_norme01(bigx, node, args);
 	i = ft_norme02(bigx, node, args, i);
 	len = ft_norme03(bigx, node, args, i);
@@ -153,6 +161,13 @@ char			*ft_bigx_specifier(va_list args, t_list *node)
 		ft_norme04(bigx, len);
 	else
 		ft_norme05(bigx, len);
-	node->str = bigx->string;
-	return (bigx->string);
+	node->str = ft_strdup(bigx->string);
+	if (bigx->width)
+		free(bigx->width);
+	// if (bigx->precision)
+	// 	free(bigx->precision);
+	if (bigx->string)
+		free(bigx->string);
+	free(bigx);
+	return (node->str);
 }

@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 20:37:43 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/30 20:21:09 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 17:03:53 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct	s_indexes
 void			ft_putstr(char *c);
 void			ft_putchar(char c);
 char			*ft_test(char c);
-char			*ft_hexconv(unsigned int	c);
+void			ft_hexconv(unsigned int c, t_printf *a);
 int				skip_spefix(char c, char *set);
 void			get_ls(char	*str, t_list **root);
 int				ft_printf(const char *str, ...);
@@ -48,6 +48,8 @@ void			ft_u_specifier(va_list args, t_list *node);
 int				precision_exist(t_list *node, int i);
 void			ft_p_specifier(va_list args, t_list *node);
 char			*ft_strrev(char *str);
+t_printf		*initializing(void);
+void			deletinglist(t_list **root);
 void			ft_percent_specifier(va_list args, t_list *node);
 
 #endif

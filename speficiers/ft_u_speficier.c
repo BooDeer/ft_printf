@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:40 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/30 18:24:27 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 18:29:11 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,22 +93,23 @@ void	ft_u_specifier(va_list args, t_list *node)
 	unsigned int		i;
 	unsigned int		len;
 
-	t_printf u;
-	u.flag = '\0';
-	u.width = NULL;
-	u.precision = NULL;
+	t_printf *u;
+	u = initializing();
+	u->flag = '\0';
+	u->width = NULL;
+	u->precision = NULL;
 	i = 0;
 	if (!node)
 		return ;
 	while (node->flag[i] == '-' || node->flag[i] == '0')
-		u.flag = node->flag[i++];
+		u->flag = node->flag[i++];
 	if (node->flag[i] == '*')
 	{
-		u.width = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_atoi(u.width) < 0)
+		u->width = ft_strdup(ft_itoa(va_arg(args, int)));
+		if (ft_atoi(u->width) < 0)
 		{
-			u.width++;
-			u.flag = '-';
+			u->width++;
+			u->flag = '-';
 		}
 		i++;
 	}
@@ -116,78 +117,78 @@ void	ft_u_specifier(va_list args, t_list *node)
 	while(ft_isdigit(node->flag[i]))
 		i++;
 	if (len != i)
-		u.width = ft_substr(node->flag, len, i - len + 1);
+		u->width = ft_substr(node->flag, len, i - len + 1);
 	if (node->flag[i] == '.')
 		i++;
 	if (node->flag[i] == '*')
 	{
-		u.precision = ft_strdup(ft_itoa(va_arg(args, unsigned int)));
-		if (ft_atoi(u.precision) < 0)
-			u.precision = ft_strdup("1");
+		u->precision = ft_strdup(ft_itoa(va_arg(args, unsigned int)));
+		if (ft_atoi(u->precision) < 0)
+			u->precision = ft_strdup("1");
 		i++;
 	}
 	len = i;
 	while(ft_isdigit(node->flag[i]))
 		i++;
 	if (len != i)
-		u.precision = ft_substr(node->flag, len , i - len + 1);
-	if (!u.width)
-		u.width = ft_strdup("0");
-	if (!u.precision && precision_exist(node, i))
-		u.precision = ft_strdup("0");
-	else if (!u.precision)
-		u.precision = ft_strdup("-1");
+		u->precision = ft_substr(node->flag, len , i - len + 1);
+	if (!u->width)
+		u->width = ft_strdup("0");
+	if (!u->precision && precision_exist(node, i))
+		u->precision = ft_strdup("0");
+	else if (!u->precision)
+		u->precision = ft_strdup("-1");
 	len = va_arg(args, int);
-	if (ft_atoi1(u.width) == 0 && ft_atoi1(u.precision) == 0 && (len == 0 || ft_count(len) == 0))
-		u.string = ft_strdup("");
-	else if (ft_atoi(u.width) > ft_count(len) - 2 && ft_atoi(u.width) > ft_atoi(u.precision))
+	if (ft_atoi1(u->width) == 0 && ft_atoi1(u->precision) == 0 && (len == 0 || ft_count(len) == 0))
+		u->string = ft_strdup("");
+	else if (ft_atoi(u->width) > ft_count(len) - 2 && ft_atoi(u->width) > ft_atoi(u->precision))
 	{
-		u.string = (char *)malloc(sizeof(char) * ft_atoi1(u.width) + 1);
-		if (u.flag == '0')
-			ft_memset(u.string, '0', ft_atoi1(u.width));
+		u->string = (char *)malloc(sizeof(char) * ft_atoi1(u->width) + 1);
+		if (u->flag == '0')
+			ft_memset(u->string, '0', ft_atoi1(u->width));
 		else
-			ft_memset(u.string, ' ', ft_atoi1(u.width));
-		if (ft_atoi1(u.precision) == 0 && len == 0)
+			ft_memset(u->string, ' ', ft_atoi1(u->width));
+		if (ft_atoi1(u->precision) == 0 && len == 0)
 			;
-		else if (u.flag == '-')
+		else if (u->flag == '-')
 		{
-			if (ft_atoi(u.precision) != -1)
-				ft_memset(u.string, '0', ft_atoi1(u.precision));
-			if (ft_atoi(u.precision) > ft_count(len))
-				ft_memcpy(&u.string[ft_atoi1(u.precision) - ft_count(len) + 1], ft_itoa1(len), ft_count(len) - 1);
+			if (ft_atoi(u->precision) != -1)
+				ft_memset(u->string, '0', ft_atoi1(u->precision));
+			if (ft_atoi(u->precision) > ft_count(len))
+				ft_memcpy(&u->string[ft_atoi1(u->precision) - ft_count(len) + 1], ft_itoa1(len), ft_count(len) - 1);
 			else
-				ft_memcpy(u.string, ft_itoa1(len), ft_count(len) - 1);			
+				ft_memcpy(u->string, ft_itoa1(len), ft_count(len) - 1);			
 		}
 		else
 		{
-			if (ft_atoi(u.precision) != -1)
-				ft_memset(&u.string[ft_atoi1(u.width) - ft_atoi1(u.precision)], '0', ft_atoi1(u.precision));
-			if (len == 0 && ft_atoi1(u.precision) == 0)
+			if (ft_atoi(u->precision) != -1)
+				ft_memset(&u->string[ft_atoi1(u->width) - ft_atoi1(u->precision)], '0', ft_atoi1(u->precision));
+			if (len == 0 && ft_atoi1(u->precision) == 0)
 				;
 			else
-				ft_memcpy(&u.string[ft_atoi1(u.width) - ft_count(len) + 1], ft_itoa1(len),
+				ft_memcpy(&u->string[ft_atoi1(u->width) - ft_count(len) + 1], ft_itoa1(len),
 			ft_count(len));
 		}
-		u.string[ft_atoi1(u.width)] = '\0';
+		u->string[ft_atoi1(u->width)] = '\0';
 	}
-	else if (ft_atoi(u.precision) > ft_count(len))
+	else if (ft_atoi(u->precision) > ft_count(len))
 	{
-			u.string = (char *)malloc(sizeof(char) * ft_atoi1(u.precision) + 1);
-		ft_memset(u.string, '0', ft_atoi1(u.precision));
-		ft_strlcpy(&u.string[ft_atoi1(u.precision) - ft_count(len) + 1], ft_itoa1(len), 
+			u->string = (char *)malloc(sizeof(char) * ft_atoi1(u->precision) + 1);
+		ft_memset(u->string, '0', ft_atoi1(u->precision));
+		ft_strlcpy(&u->string[ft_atoi1(u->precision) - ft_count(len) + 1], ft_itoa1(len), 
 		ft_count(len));
-		u.string[ft_atoi1(u.precision)] = '\0';
+		u->string[ft_atoi1(u->precision)] = '\0';
 	}
 	else
 	{
-		if (len == 0 && (ft_atoi1(u.precision) == 0 || ft_atoi1(u.precision) == 1) && ft_count(len) == 1)
-			u.string = ft_strdup("");		
+		if (len == 0 && (ft_atoi1(u->precision) == 0 || ft_atoi1(u->precision) == 1) && ft_count(len) == 1)
+			u->string = ft_strdup("");		
 		else
 		{
-			u.string = (char *)malloc(sizeof(char) * ft_count(len) + 1);
-			u.string = ft_strdup(ft_itoa1(len));
-			u.string[ft_count(len)] = '\0';
+			u->string = (char *)malloc(sizeof(char) * ft_count(len) + 1);
+			u->string = ft_strdup(ft_itoa1(len));
+			u->string[ft_count(len)] = '\0';
 		}
 	}
-	node->str = u.string;
+	node->str = u->string;
 }

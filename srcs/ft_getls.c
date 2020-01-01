@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/30 20:20:08 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 18:02:02 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			get_ls(char *s, t_list **root)
 		{
 			z.start = z.i + 1;
 			z.skipcnv = get_index(s, z.start);
-			ft_lstadd_back(root, ft_lstnew(NULL, *ft_substr(s, z.skipcnv, 1),
+			ft_lstadd_back(root, ft_lstnew(NULL, ft_substr(s, z.skipcnv, 1),
 			(ft_substr(s, z.i + 1, z.skipcnv - z.i - 1))));
 			z.start = z.skipcnv;
 			z.i = z.skipcnv;
@@ -82,10 +82,55 @@ void			get_ls(char *s, t_list **root)
 		{
 			if (check_index(s[z.start], z.start))
 				ft_lstadd_back(root, ft_lstnew(ft_substr(s, z.start,
-				(z.i - z.start) + 1), '\0', NULL));
+				(z.i - z.start) + 1), ft_strdup("\0"), NULL));
 			else
 				ft_lstadd_back(root, ft_lstnew(ft_substr(s, z.start + 1,
-				(z.i - z.start)), '\0', NULL));
+				(z.i - z.start)), ft_strdup("\0"), NULL));
 		}
+	}
+}
+
+void	free_struct(t_printf *a)
+{
+	if (a->precision)
+		free(a->precision);
+	if (a->width)
+		free(a->width);
+	if (a->string)
+		free(a->string);
+}
+
+t_printf	*initializing(void)
+{	
+	t_printf 	*a;
+
+	a = (t_printf *)malloc(sizeof(t_printf));
+	a->flag = '\0';
+	a->precision = NULL;
+	a->string = NULL;
+	a->width = NULL;
+	return (a);
+}
+
+void	deletinglist(t_list **root)
+{
+	t_list	*next;
+	t_list	*current;
+
+	current = *root;
+	while (current)
+	{
+		next = current->next;
+		if (current->cnv)
+			free(current->cnv);
+		if (current->flag)
+			free(current->flag);
+		if (current->c == 2)
+			--current->str;	
+		if (current->str)
+			free(current->str);
+		if (current)
+			free(current);
+		current = next;
 	}
 }

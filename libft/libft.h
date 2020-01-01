@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 18:41:03 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 14:51:22 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 15:50:14 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 typedef	struct	z_list
 {
 	char				*str;
-	char				cnv;
+	char				*cnv;
 	char				*flag;
 	int					c;
 	struct z_list		*next;
@@ -60,7 +60,7 @@ char			**ft_split(char const *s, char c);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_itoa(int n);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
-t_list			*ft_lstnew(char	*str, char cnv, char *flag);
+t_list			*ft_lstnew(char	*str, char *cnv, char *flag);
 void			ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
 t_list			*ft_lstlast(t_list *lst);

@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/26 20:53:23 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 18:36:05 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	get_args(t_list **root, va_list args)
 	while(temp)
 	{
 		 if (temp->cnv != '\0')
-		 	ft_put_arg(args, temp, temp->cnv);
+		 	ft_put_arg(args, temp, *temp->cnv);
 		temp = temp->next;
 	}
 }
@@ -58,7 +58,7 @@ int		ft_print_node(t_list **root)
 	temp = *root;
 	while(temp)
 	{
-		if (temp->cnv == 'c')
+		if (*temp->cnv == 'c')
 		{
 			if (temp->c == 2)
 			{
@@ -97,6 +97,6 @@ int		ft_printf(const char *str, ...)
 	get_ls((char *)str, &root);
 	get_args(&root, args);
 	val = ft_print_node(&root);
-	
+	// deletinglist(&root);
 	return (val);
 }

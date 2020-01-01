@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:59:50 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/30 18:33:33 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 17:38:55 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ char	*ft_strrev(char *str)
 	char	temp;
 
 	len = 0;
-	while (str[len] != '\0')
+	if (!str)
+		return (NULL);
+	while (str[len])
 	{
 		len++;
 	}
@@ -35,7 +37,7 @@ char	*ft_strrev(char *str)
 	return (str);
 }
 
-char	*ft_hexconv(unsigned int c)
+void	ft_hexconv(unsigned int c, t_printf *a)
 {
 	char	*hex;
 	int		i;
@@ -43,6 +45,8 @@ char	*ft_hexconv(unsigned int c)
 
 	i = 0;
 	hex = (char *)malloc(sizeof(char) * 20);
+	if (!hex)
+		return ;
 	while (c)
 	{
 		temp = c % 16;
@@ -59,5 +63,6 @@ char	*ft_hexconv(unsigned int c)
 		c /= 16;
 	}
 	hex = ft_strrev(hex);
-	return (hex);
+	free(a->precision);
+	a->precision = hex;
 }
