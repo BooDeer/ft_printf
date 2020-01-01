@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:30:25 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 17:49:11 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 21:28:57 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,14 @@
 #include "../srcs/ft_printf.h"
 #include <stdio.h>
 
-void	ft_c_specifier(va_list args, t_list *node)
+static	void	ft_norme01(t_printf *a, va_list args, t_list *node)
 {
-	int		i;
-	int		len;
+	int i;
+	int	len;
 
-	t_printf *a;
-	a = initializing();
 	i = 0;
-	if (!node)
-		return ;
 	node->c = 0;
-	while(node->flag[i] == '-')
+	while (node->flag[i] == '-')
 		a->flag = node->flag[i++];
 	if (node->flag[i] == '*')
 	{
@@ -38,12 +34,22 @@ void	ft_c_specifier(va_list args, t_list *node)
 		i++;
 	}
 	len = i;
-	while(ft_isdigit(node->flag[i]))
+	while (ft_isdigit(node->flag[i]))
 		i++;
 	if (len != i)
-		a->width = ft_substr(node->flag,len, i - len + 1);
+		a->width = ft_substr(node->flag, len, i - len + 1);
 	if (!a->width || ft_atoi(a->width) == 0)
 		a->width = ft_strdup("1");
+}
+
+void			ft_c_specifier(va_list args, t_list *node)
+{
+	t_printf *a;
+
+	a = initializing();
+	if (!node)
+		return ;
+	ft_norme01(a, args, node);
 	a->string = (char *)malloc(sizeof(char) * ft_atoi(a->width) + 1);
 	a->string[ft_atoi(a->width)] = '\0';
 	ft_memset(a->string, ' ', ft_atoi(a->width));
@@ -58,7 +64,7 @@ void	ft_c_specifier(va_list args, t_list *node)
 	}
 	else
 	{
-		a->string[ft_atoi(a->width) - 1] = va_arg(args, int);	
+		a->string[ft_atoi(a->width) - 1] = va_arg(args, int);
 		if (a->string[ft_atoi(a->width) - 1] == '\0' && node->flag)
 			node->c = 1;
 	}

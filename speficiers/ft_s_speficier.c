@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:04:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 18:29:44 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/01 21:45:06 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,8 @@ int			precision_exist(t_list *node, int i)
 	return (0);
 }
 
-void		ft_s_specifier(va_list args, t_list *node)
+static	int		ft_norme01(t_printf *s, va_list args, t_list *node, int i)
 {
-	int		i;
-	int		len;
-
-	t_printf *s;
-	s = initializing();
-	i = 0;
-	if (!node)
-		return ;
 	while (node->flag[i] == '-' || node->flag[i] == '0')
 		s->flag = node->flag[i++];
 	if (node->flag[i] == '*')
@@ -60,6 +52,46 @@ void		ft_s_specifier(va_list args, t_list *node)
 			s->precision = ft_strdup("-2");
 		i++;
 	}
+	return (i);
+}
+
+void		ft_s_specifier(va_list args, t_list *node)
+{
+	int		i;
+	int		len;
+
+	t_printf *s;
+	s = initializing();
+	i = 0;
+	if (!node)
+		return ;
+	i = ft_norme01(s, args, node, i);
+	// while (node->flag[i] == '-' || node->flag[i] == '0')
+	// 	s->flag = node->flag[i++];
+	// if (node->flag[i] == '*')
+	// {
+	// 	s->width = ft_strdup(ft_itoa(va_arg(args, int)));
+	// 	if (ft_atoi(s->width) < 0)
+	// 	{
+	// 		s->width++;
+	// 		s->flag = '-';
+	// 	}
+	// 	i++;
+	// }
+	// len = i;
+	// while(ft_isdigit(node->flag[i]))
+	// 	i++;
+	// if (len != i)
+	// 	s->width = ft_substr(node->flag, len, i - len + 1);
+	// if (node->flag[i] == '.')
+	// 	i++;
+	// if (node->flag[i] == '*')
+	// {
+	// 	s->precision = ft_strdup(ft_itoa(va_arg(args, int)));
+	// 	if (ft_atoi(s->precision) < 0)
+	// 		s->precision = ft_strdup("-2");
+	// 	i++;
+	// }
 	len = i;
 	while(ft_isdigit(node->flag[i]))
 		i++;
