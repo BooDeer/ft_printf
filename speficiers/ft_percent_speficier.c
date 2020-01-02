@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:36 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 21:39:35 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/02 14:51:12 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int		norme01(t_printf *pr, va_list args, t_list *node, int i)
 	return (i);
 }
 
-static	void	norme03(t_printf *pr, t_list *node)
+static	void	norme03(t_printf *pr)
 {
 	pr->string = (char *)malloc(sizeof(char) * ft_atoi(pr->width) + 1);
 	if (pr->flag == '0')
@@ -74,6 +74,7 @@ void			ft_percent_specifier(va_list args, t_list *node)
 		pr->width = ft_strdup("1");
 	if (node->flag[i + 1] == '*')
 		va_arg(args, int);
+	norme03(pr);
 	pr->string[ft_atoi(pr->width)] = '\0';
 	node->str = ft_strdup(pr->string);
 }
