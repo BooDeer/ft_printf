@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:43:31 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 21:22:42 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/02 16:00:56 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,7 @@ static	void	ft_norme05(t_printf *a, int len)
 		a->string[len] = '\0';
 	}
 	else
-	{
 		a->string = ft_strdup(a->precision);
-		a->string[ft_strlen(a->precision)] = '\0';
-	}
 }
 
 char			*ft_bigx_specifier(va_list args, t_list *node)
