@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 15:59:50 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 17:38:55 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/02 21:39:08 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	ft_hexconv(unsigned int c, t_printf *a)
 
 	i = 0;
 	hex = (char *)malloc(sizeof(char) * 20);
-	if (!hex)
-		return ;
 	while (c)
 	{
 		temp = c % 16;

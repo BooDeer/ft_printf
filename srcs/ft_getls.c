@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 18:02:02 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/02 22:02:56 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 ** 	first speficier encountered
 */
 
-static int		get_index(char *str, int start)
+static int			get_index(char *str, int start)
 {
 	char	*cnv;
 	int		j;
@@ -40,7 +40,7 @@ static int		get_index(char *str, int start)
 	return (0);
 }
 
-static int		check_index(char str, int i)
+static int			check_index(char str, int i)
 {
 	char	*cnv;
 	int		j;
@@ -61,7 +61,7 @@ static int		check_index(char str, int i)
 ** flags, width and precision in seperated nodes
 */
 
-void			get_ls(char *s, t_list **root)
+void				get_ls(char *s, t_list **root)
 {
 	t_index z;
 
@@ -90,7 +90,7 @@ void			get_ls(char *s, t_list **root)
 	}
 }
 
-void	free_struct(t_printf *a)
+void				free_struct(t_printf *a)
 {
 	if (a->precision)
 		free(a->precision);
@@ -100,9 +100,9 @@ void	free_struct(t_printf *a)
 		free(a->string);
 }
 
-t_printf	*initializing(void)
-{	
-	t_printf 	*a;
+t_printf			*initializing(void)
+{
+	t_printf		*a;
 
 	a = (t_printf *)malloc(sizeof(t_printf));
 	a->flag = '\0';
@@ -110,27 +110,4 @@ t_printf	*initializing(void)
 	a->string = NULL;
 	a->width = NULL;
 	return (a);
-}
-
-void	deletinglist(t_list **root)
-{
-	t_list	*next;
-	t_list	*current;
-
-	current = *root;
-	while (current)
-	{
-		next = current->next;
-		if (current->cnv)
-			free(current->cnv);
-		if (current->flag)
-			free(current->flag);
-		if (current->c == 2)
-			--current->str;	
-		if (current->str)
-			free(current->str);
-		if (current)
-			free(current);
-		current = next;
-	}
 }

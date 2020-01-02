@@ -6,13 +6,13 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 20:27:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 15:49:03 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/02 21:28:26 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(char	*str, char *cnv, char *flag)
+t_list	*ft_lstnew(char *str, char *cnv, char *flag)
 {
 	t_list	*new;
 
