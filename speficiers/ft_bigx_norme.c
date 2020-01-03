@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 01:10:46 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/03 02:38:42 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 02:47:10 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		ft_bigx02(t_printf *a, t_list *node, va_list args, int i)
 		a->precision = ft_itoa(va_arg(args, int));
 		if (ft_atoi(a->precision) < 0)
 		{
-			free(a->precision);
+			a->d = -1;
 			a->precision = ft_strdup("1");
 		}
 		i++;

@@ -6,8 +6,8 @@ int	main()
 {
 	int a, b;
 
-	a = ft_printf("%04.x\n", 100);
-	b =    printf("%04.x\n", 100);
+	a = ft_printf("%04.3x\n", 100);
+	b =    printf("%04.3x\n", 100);
 
 	printf("%d\n%d\n", a, b);
 }

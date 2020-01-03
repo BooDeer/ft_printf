@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 21:58:47 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/02 22:02:56 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 02:46:44 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ t_printf			*initializing(void)
 	a->precision = NULL;
 	a->string = NULL;
 	a->width = NULL;
+	a->d = 0;
 	return (a);
 }

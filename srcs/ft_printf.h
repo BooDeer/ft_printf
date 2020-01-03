@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 20:37:43 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/03 01:11:56 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 02:46:15 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct	s_printf
 	char	*string;
 	char	*precision;
 	char	*width;
+	int		d;
 	char	flag;
 }				t_printf;
 
