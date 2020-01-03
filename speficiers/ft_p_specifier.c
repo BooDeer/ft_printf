@@ -6,40 +6,28 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:37:36 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/02 20:24:32 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 01:48:36 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../srcs/ft_printf.h"
 
-static char		*ft_hexconv1(size_t c)
+static int		ft_count(int n)
 {
-	char	*hex;
-	int		i;
-	int		temp;
+	int count;
 
-	i = 0;
-	hex = (char *)malloc(sizeof(char) * 20);
-	if (!c)
-		hex[0] = '0';
-	while (c)
+	count = 1;
+	if (n < 0)
+		count++;
+	if (n == 0)
+		count = 2;
+	while (n != 0)
 	{
-		temp = c % 16;
-		if (temp < 10)
-		{
-			hex[i] = temp + 48;
-			i++;
-		}
-		else
-		{
-			hex[i] = temp + 87;
-			i++;
-		}
-		c /= 16;
+		count++;
+		n /= 10;
 	}
-	hex = ft_strrev(hex);
-	return (hex);
+	return (count);
 }
 
 static int		ft_norme01(t_printf *p, va_list args, t_list *node, int i)
@@ -145,6 +133,12 @@ void			ft_p_specifier(va_list args, t_list *node)
 	ft_norme02(p, args, node, i);
 	len = ft_atoi(p->precision);
 	p->precision = ft_strdup(ft_hexconv1(va_arg(args, size_t)));
+	if (ft_atoi(p->precision) < ft_count(len) - 1)
+	 	if (p->flag == '0' && ft_atoi(p->precision) >= 0)
+	 		p->flag = '\0';
+	if (ft_atoi(p->precision) >= ft_count(len) - 1)
+		if (p->flag == '0')
+			p->flag = '\0';
 	if (*p->precision == '0' && len)
 	{
 		p->precision = ft_strdup("");

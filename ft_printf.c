@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 15:13:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 18:56:39 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/02 23:45:49 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "srcs/ft_printf.h"
 #include <stdio.h>
 
-void	ft_put_arg(va_list args, t_list *node,char c)
+void		ft_put_arg(va_list args, t_list *node, char c)
 {
 	if (c == 'c')
 		ft_c_specifier(args, node);
@@ -27,76 +27,85 @@ void	ft_put_arg(va_list args, t_list *node,char c)
 	else if (c == 'X')
 		ft_bigx_specifier(args, node);
 	else if (c == 'd' || c == 'i')
-		ft_d_specifier(	args, node);
+		ft_d_specifier(args, node);
 	else if (c == '%')
 		ft_percent_specifier(args, node);
 	else if (c == 'u')
 		ft_u_specifier(args, node);
-	return ;			
+	return ;
 }
 
-void	get_args(t_list **root, va_list args)
+void		get_args(t_list **root, va_list args)
 {
 	t_list		*temp;
 
 	temp = *root;
-	while(temp)
+	while (temp)
 	{
-		 if (temp->cnv != '\0')
-		 	ft_put_arg(args, temp, *temp->cnv);
+		if (temp->cnv != '\0')
+			ft_put_arg(args, temp, *temp->cnv);
 		temp = temp->next;
 	}
 }
-int		ft_print_node(t_list **root)
+
+int			ft_printf_node1(t_list *temp)
 {
-	t_list	*temp;
-	int		val;
-	int	a;
+	int			val;
+	int			a;
 
 	a = '\0';
 	val = 0;
+	if (temp->c == 2)
+	{
+		ft_putchar(a);
+		ft_putstr(temp->str);
+		val += ft_strlen(temp->str) + 1;
+	}
+	else if (temp->c == 1)
+	{
+		ft_putstr(temp->str);
+		ft_putchar(a);
+		val += ft_strlen(temp->str) + 1;
+	}
+	else
+	{
+		ft_putstr(temp->str);
+		val += ft_strlen(temp->str);
+	}
+	return (val);
+}
+
+int			ft_print_node(t_list **root)
+{
+	t_list		*temp;
+	int			val;
+
+	val = 0;
 	temp = *root;
-	while(temp)
+	while (temp)
 	{
 		if (*temp->cnv == 'c')
-		{
-			if (temp->c == 2)
-			{
-				ft_putchar(a);
-				ft_putstr(temp->str);
-				val += ft_strlen(temp->str) + 1;
-			}
-			else if (temp->c == 1)
-			{
-				ft_putstr(temp->str);
-				ft_putchar(a);
-				val += ft_strlen(temp->str) + 1;
-			}
-			else
-			{
-				ft_putstr(temp->str);
-				val += ft_strlen(temp->str);
-			}
-			
-		}
+			val += ft_printf_node1(temp);
 		else
-		{	ft_putstr(temp->str);
+		{
+			ft_putstr(temp->str);
 			val += ft_strlen(temp->str);
 		}
 		temp = temp->next;
 	}
 	return (val);
 }
-int		ft_printf(const char *str, ...)
+
+int			ft_printf(const char *str, ...)
 {
 	va_list		args;
 	t_list		*root;
 	int			val;
+
 	root = NULL;
 	va_start(args, str);
 	get_ls((char *)str, &root);
 	get_args(&root, args);
 	val = ft_print_node(&root);
-	// deletinglist(&root);
 	return (val);
 }

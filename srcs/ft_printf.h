@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 20:37:43 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/01 17:03:53 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 01:11:56 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int				precision_exist(t_list *node, int i);
 void			ft_p_specifier(va_list args, t_list *node);
 char			*ft_strrev(char *str);
 t_printf		*initializing(void);
+char			*ft_hexconv1(size_t c);
 void			deletinglist(t_list **root);
+int				precision_exist(t_list *node, int i);
 void			ft_percent_specifier(va_list args, t_list *node);
-
+int				ft_bigx01(t_printf *a, t_list *node, va_list args);
+int				ft_bigx02(t_printf *a, t_list *node, va_list args, int i);
 #endif

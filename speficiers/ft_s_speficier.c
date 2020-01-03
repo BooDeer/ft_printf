@@ -6,23 +6,11 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 23:04:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/02 15:29:32 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 01:49:07 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../srcs/ft_printf.h"
-
-int				precision_exist(t_list *node, int i)
-{
-	i--;
-	while (node->flag[i] != '%' && node->flag[i])
-	{
-		if (node->flag[i] == '.')
-			return (1);
-		i--;
-	}
-	return (0);
-}
 
 static	int		ft_norme010(t_printf *s, va_list args, t_list *node, int i)
 {

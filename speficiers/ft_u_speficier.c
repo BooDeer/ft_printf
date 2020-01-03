@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:40:40 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/02 17:52:25 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 01:57:57 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static	void		ft_norme02(t_printf *u, va_list args, t_list *node, int i)
 	{
 		u->precision = ft_strdup(ft_itoa(va_arg(args, unsigned int)));
 		if (ft_atoi(u->precision) < 0)
-			u->precision = ft_strdup("1");
+			u->precision = ft_strdup("-1");
 		i++;
 	}
 	len = i;
@@ -221,6 +221,12 @@ void				ft_u_specifier(va_list args, t_list *node)
 	i = ft_norme01(u, args, node, i);
 	ft_norme02(u, args, node, i);
 	len = va_arg(args, int);
+	if (ft_atoi(u->precision) < ft_count(len) - 1)
+	 	if (u->flag == '0' && ft_atoi(u->precision) >= 0)
+	 		u->flag = '\0';
+	if (ft_atoi(u->precision) >= ft_count(len) - 1)
+		if (u->flag == '0')
+			u->flag = '\0';
 	if (ft_atoi1(u->width) == 0 && ft_atoi1(u->precision)
 	== 0 && (len == 0 || ft_count(len) == 0))
 		u->string = ft_strdup("");

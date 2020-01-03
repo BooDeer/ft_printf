@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/30 18:22:40 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/12/30 20:38:16 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 01:10:23 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,45 @@ int			skip_spefix(char c, char *set)
 		i++;
 	}
 	return (1);
+}
+
+char		*ft_hexconv1(size_t c)
+{
+	char	*hex;
+	int		i;
+	int		temp;
+
+	i = 0;
+	hex = (char *)malloc(sizeof(char) * 20);
+	if (!c)
+		hex[0] = '0';
+	while (c)
+	{
+		temp = c % 16;
+		if (temp < 10)
+		{
+			hex[i] = temp + 48;
+			i++;
+		}
+		else
+		{
+			hex[i] = temp + 87;
+			i++;
+		}
+		c /= 16;
+	}
+	hex = ft_strrev(hex);
+	return (hex);
+}
+
+int			precision_exist(t_list *node, int i)
+{
+	i--;
+	while (node->flag[i] != '%' && node->flag[i])
+	{
+		if (node->flag[i] == '.')
+			return (1);
+		i--;
+	}
+	return (0);
 }
