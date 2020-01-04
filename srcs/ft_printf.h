@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 20:37:43 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/04 06:57:57 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/04 07:28:39 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,6 @@ int				ft_count(unsigned int n);
 char			*ft_itoa1(unsigned int n);
 unsigned int	ft_atoi1(const char *c);
 int				ft_counter(int n);
+void			ft_d_speficier_norm(t_printf *d, int len);
 void			ft_u_speficier04(t_printf *u, int len);
 #endif

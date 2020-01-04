@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 01:10:46 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/03 03:00:07 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:04:41 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,19 @@ int		ft_bigx02(t_printf *a, t_list *node, va_list args, int i)
 		i++;
 	}
 	return (i);
+}
+
+void	ft_d_speficier_norm(t_printf *d, int len)
+{
+	if (len < 0)
+	{
+		len *= -1;
+		d->string[0] = '-';
+		if (len > 0)
+			ft_memcpy(&d->string[1], ft_itoa(len), ft_counter(len) - 1);
+		else
+			ft_memcpy(d->string, ft_itoa(len), ft_counter(len) - 1);
+	}
+	else
+		ft_memcpy(d->string, ft_itoa(len), (int)ft_strlen(ft_itoa(len)));
 }

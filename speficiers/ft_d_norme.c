@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 03:07:11 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/04 06:57:29 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:05:04 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,25 @@ void	ft_d_specifier02(t_printf *d, va_list args, t_list *node, int i)
 
 void	ft_d_specifier04(t_printf *d, int len)
 {
-	if ((ft_atoi(d->precision) == 0 || ft_atoi(d->precision) == 1)
-	&& len == 0)
-		;
-	else if (d->flag == '-')
+	if (ft_atoi(d->precision) != -1 && len < 0)
+		ft_memset(d->string, '0', ft_atoi(d->precision) + 1);
+	else if (ft_atoi(d->precision) != -1)
+		ft_memset(d->string, '0', ft_atoi(d->precision));
+	if (ft_atoi(d->precision) > ft_counter(len) - 1)
 	{
-		if (ft_atoi(d->precision) != -1)
-			ft_memset(d->string, '0', ft_atoi(d->precision));
-		if (ft_atoi(d->precision) > ft_counter(len) - 1)
+		if (len < 0)
 		{
-			if (len < 0)
-			{
-				len *= -1;
-				d->string[0] = '-';
-				ft_memcpy(&d->string[ft_atoi(d->precision) - ft_counter(len)
-				+ 2], ft_itoa(len), ft_counter(len) - 1);
-			}
-			else
-				ft_memcpy(&d->string[ft_atoi(d->precision) - ft_counter(len)
-				+ 1], ft_itoa(len), ft_counter(len) - 1);
+			len *= -1;
+			d->string[0] = '-';
+			ft_memcpy(&d->string[ft_atoi(d->precision) - ft_counter(len)
+			+ 2], ft_itoa(len), ft_counter(len) - 1);
 		}
 		else
-			ft_memcpy(d->string, ft_itoa(len), (int)ft_strlen(ft_itoa(len)));
+			ft_memcpy(&d->string[ft_atoi(d->precision) - ft_counter(len)
+			+ 1], ft_itoa(len), ft_counter(len) - 1);
 	}
+	else
+		ft_d_speficier_norm(d, len);
 }
 
 void	ft_d_specifier05(t_printf *d, int len)
