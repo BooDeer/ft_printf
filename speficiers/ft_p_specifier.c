@@ -6,14 +6,14 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:37:36 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/03 01:48:36 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/03 03:30:37 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../srcs/ft_printf.h"
 
-static int		ft_count(int n)
+static int		ft_count1(int n)
 {
 	int count;
 
@@ -30,57 +30,7 @@ static int		ft_count(int n)
 	return (count);
 }
 
-static int		ft_norme01(t_printf *p, va_list args, t_list *node, int i)
-{
-	int		len;
-
-	while (node->flag[i] == '-' || node->flag[i] == '0')
-		p->flag = node->flag[i++];
-	if (node->flag[i] == '*')
-	{
-		p->width = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_atoi(p->width) < 0)
-		{
-			p->width++;
-			p->flag = '-';
-		}
-		i++;
-	}
-	len = i;
-	while (ft_isdigit(node->flag[i]))
-		i++;
-	if (node->flag[i] == '.' && !p->flag)
-		p->flag = '\0';
-	if (len != i)
-		p->width = ft_substr(node->flag, len, i - len + 1);
-	if (node->flag[i] == '.')
-		i++;
-	return (i);
-}
-
-static	void	ft_norme02(t_printf *p, va_list args, t_list *node, int i)
-{
-	int	len;
-
-	if (node->flag[i] == '*')
-	{
-		p->precision = ft_strdup(ft_itoa(va_arg(args, int)));
-		if (ft_atoi(p->precision) < 0)
-			p->precision = ft_strdup("1");
-		i++;
-	}
-	len = i;
-	while (ft_isdigit(node->flag[i]))
-		i++;
-	if (len != i)
-		p->precision = ft_substr(node->flag, len, i - len + 1);
-	if (!p->width)
-		p->width = ft_strdup("1");
-	(p->precision || node->flag[i - 1] == '.') ? (p->precision =
-	ft_strdup("1")) : (p->precision = ft_strdup("0"));
-}
-
-static	void	ft_norme03(t_printf *p, int len)
+static	void	ft_p_speficier03(t_printf *p, int len)
 {
 	p->string = (char *)malloc(sizeof(char) * ft_atoi(p->width) + 1);
 	ft_memset(p->string, ' ', ft_atoi(p->width));
@@ -105,7 +55,7 @@ static	void	ft_norme03(t_printf *p, int len)
 	p->string[ft_atoi(p->width)] = '\0';
 }
 
-static	void	ft_norme04(t_printf *p, int len)
+static	void	ft_p_speficier04(t_printf *p, int len)
 {
 	if (len > (int)ft_strlen(p->precision))
 	{
@@ -119,6 +69,23 @@ static	void	ft_norme04(t_printf *p, int len)
 		p->string = ft_strdup(p->precision);
 }
 
+static	void	ft_p_speficier05(t_printf *p, int len)
+{
+	if (ft_atoi(p->precision) < ft_count1(len) - 1)
+		if (p->flag == '0' && ft_atoi(p->precision) >= 0)
+			p->flag = '\0';
+	if (ft_atoi(p->precision) >= ft_count1(len) - 1)
+		if (p->flag == '0')
+			p->flag = '\0';
+	if (*p->precision == '0' && len)
+	{
+		p->precision = ft_strdup("");
+		p->precision = ft_strjoin("0x", p->precision);
+	}
+	else
+		p->precision = ft_strjoin("0x", p->precision);
+}
+
 void			ft_p_specifier(va_list args, t_list *node)
 {
 	int			i;
@@ -129,27 +96,15 @@ void			ft_p_specifier(va_list args, t_list *node)
 	i = 0;
 	if (!node)
 		return ;
-	i = ft_norme01(p, args, node, i);
-	ft_norme02(p, args, node, i);
+	i = ft_p_speficier01(p, args, node, i);
+	ft_p_speficier02(p, args, node, i);
 	len = ft_atoi(p->precision);
 	p->precision = ft_strdup(ft_hexconv1(va_arg(args, size_t)));
-	if (ft_atoi(p->precision) < ft_count(len) - 1)
-	 	if (p->flag == '0' && ft_atoi(p->precision) >= 0)
-	 		p->flag = '\0';
-	if (ft_atoi(p->precision) >= ft_count(len) - 1)
-		if (p->flag == '0')
-			p->flag = '\0';
-	if (*p->precision == '0' && len)
-	{
-		p->precision = ft_strdup("");
-		p->precision = ft_strjoin("0x", p->precision);
-	}
-	else
-		p->precision = ft_strjoin("0x", p->precision);
+	ft_p_speficier05(p, len);
 	if (ft_atoi(p->width) > (int)ft_strlen(p->precision) &&
 	ft_atoi(p->width) > len)
-		ft_norme03(p, len);
+		ft_p_speficier03(p, len);
 	else
-		ft_norme04(p, len);
+		ft_p_speficier04(p, len);
 	node->str = p->string;
 }

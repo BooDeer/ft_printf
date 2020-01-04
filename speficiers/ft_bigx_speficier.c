@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:43:31 by hboudhir          #+#    #+#             */
-/*   Updated: 2020/01/03 02:49:41 by hboudhir         ###   ########.fr       */
+/*   Updated: 2020/01/04 07:03:42 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,6 @@ char			*ft_bigx_specifier(va_list args, t_list *node)
 	i = ft_bigx01(bigx, node, args);
 	i = ft_bigx02(bigx, node, args, i);
 	len = bigx03(bigx, node, args, i);
-	if (bigx->d < (int)ft_strlen(bigx->precision))
-    	if (bigx->d >= 0 && bigx->flag == '0')
-            bigx->flag = '\0';
-	if (bigx->d >= (int)ft_strlen(bigx->precision) && bigx->flag == '0')
-	    if (bigx->flag == '0')
-           	bigx->flag = '\0';
 	if (ft_atoi(bigx->width) > (int)ft_strlen(bigx->precision)
 	&& ft_atoi(bigx->width) > len)
 		bigx04(bigx, len);
